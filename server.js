@@ -8,10 +8,8 @@ app.use(express.static('upload'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
 app.use('/api', require('./src/app/api'))
-
-app.get('/*', (req, res) => {
+app.use('/*', (req, res) => {
   res.sendFile(__dirname + '/dist/index.html')
 })
 
