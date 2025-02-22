@@ -10,7 +10,11 @@ module.exports = {
     clean: true
   },
   plugins: [
-    new HtmlWebpackPlugin({ title: 'Webpack', filename: 'index.html', template: 'public/template/index.html' })
+    new HtmlWebpackPlugin({
+      title: 'Development',
+      filename: 'index.html',
+      template: 'public/template/index.html',
+    })
   ],
   watch: true,
   devtool: 'source-map',
