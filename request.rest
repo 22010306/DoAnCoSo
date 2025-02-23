@@ -1,12 +1,13 @@
+### 
 GET http://localhost:3000/
 
-###
+### create user
 POST http://localhost:3000/api/auth/user
 Content-Type: application/json
 
 {
   "name": "John Doe",
-  "email": "aaad",
+  "email": "aaaad",
   "password": "123456"
 }
 
@@ -30,4 +31,22 @@ Content-Type: application/json
 
 {
   "id": "1044233a-d5d5-4ea3-a673-3ec6e172ff59"
+}
+
+###
+POST http://localhost:3000/api/auth/authenticate/register
+Content-Type: application/json
+
+{
+  "email": "test",
+  "password": "test"
+}
+
+###
+POST http://localhost:3000/api/auth/authenticate/login
+Content-Type: application/json
+
+{
+  "email": "aaaad",
+  "password": "123456"
 }

@@ -2,6 +2,7 @@
 
 const router = require('express').Router()
 
+const { v4 } = require('uuid')
 const User = require('../model/user')
 
 // Create user
@@ -9,9 +10,10 @@ router.post('/', async function (req, res) {
   let result
   try {
     result = await User.Create({
+      id: v4(),
       email: req.body.email,
       password: req.body.password,
-      username: req.body.username,
+      name: req.body.name,
       role: req.body.role
     })
   } catch (error) {
