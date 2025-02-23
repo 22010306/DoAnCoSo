@@ -1,4 +1,5 @@
 const express = require('express')
+const morgan = require('morgan')
 
 const app = express()
 
@@ -6,7 +7,10 @@ app.use(express.static('dist'))
 app.use(express.static('public'))
 app.use(express.static('upload'))
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true, }))
+app.use(morgan('combined', {
+  skip: (req, res) => res.statusCode < 300
+}))
 
 app.use('/api', require('./src/app/api'))
 app.use('/*', (req, res) => {

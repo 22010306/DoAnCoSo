@@ -1,23 +1,23 @@
 import { useEffect } from "react"
 import { BrowserRouter, Route, Routes } from "react-router"
 import Upload from "../uploadFile/Upload"
-import MainPage from "../MainPage"
+import MainPage from "../guess/page/MainPage"
+
 
 function App() {
-  // useEffect(function () {
-  //   fetch('/api')
-  //     .then(res => res.text())
-  //     .then(data => console.log(data));
-  // }, [])
-
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/upload" element={<Upload />} />
-        <Route path="/" element={<MainPage />} />
+        {/* User */}
+        <Route path="/">
+          <Route index element={<MainPage />} />
+        </Route>
+
+        {/* Admin */}
+        <Route path="/dashboard">
+        </Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter >
   )
 }
 

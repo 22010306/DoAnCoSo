@@ -10,7 +10,7 @@ function TitleLink({ children, href }) {
 
 function TitleBar() {
   return (
-    <div className="mt-2 px-80 bg-red-500 h-15 flex justify-between items-center">
+    <div className="mt-2 px-80 bg-red-600 h-15 flex justify-between items-center">
       {/* Left */}
       <div className="flex items-center h-full ">
         <TitleLink href="/">trang chủ</TitleLink>

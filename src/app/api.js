@@ -1,9 +1,7 @@
-const express = require('express')
-const multer = require('multer')
-const router = express.Router()
+const router = require('express').Router()
 
-// upload file
 router.use('/file', require('../uploadFile/api'))
+router.use('/auth', require('../auth/api'))
 
 // default
 router.get('/', (req, res) => {

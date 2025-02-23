@@ -1,0 +1,33 @@
+GET http://localhost:3000/
+
+###
+POST http://localhost:3000/api/auth/user
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "aaad",
+  "password": "123456"
+}
+
+###
+GET http://localhost:3000/api/auth/user
+
+###
+PUT http://localhost:3000/api/auth/user
+Content-Type: application/json
+
+{
+  "id": "dcb54fed-f4f8-497c-a598-4d49d2f9a25d",
+  "name": "John Doe",
+  "email": "ddddd",
+  "password": "1d3456"
+}
+
+###
+DELETE http://localhost:3000/api/auth/user
+Content-Type: application/json
+
+{
+  "id": "1044233a-d5d5-4ea3-a673-3ec6e172ff59"
+}
