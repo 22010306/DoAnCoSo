@@ -21,12 +21,17 @@ WHERE email = ? OR id = ?`
   static #createQuery = `
 INSERT INTO user (id, name, email, password) 
 VALUES (?, ?, ?, ?)`
-  static async Create({ id, name, email, password }, conn) {
+  static async Create({ id = v4(), name, email, password }, conn) {
     const hash = await bcrypt.hash(password, 10)
 
     if (!conn) conn = await Database.getConnection()
     await conn.query(this.#createQuery, [id, name, email, hash])
     return new User(id, name, email, password)
+  }
+
+  static async RegisterAccount({ name, email, password }, conn) {
+    conn ??= await Database.getConnection()
+    return this.Create({ name, email, password })
   }
 
   static #selectRangeQuery = `
@@ -46,8 +51,8 @@ SELECT *
 FROM user
 WHERE id = ? AND deleteAt IS NULL`
   static async FindUserById({ id }, conn) {
-    if (conn == null && typeof conn.query !== 'function') conn = await Database.getConnection()
-    const [result] = conn.query(this.#findUserByIdQuery, [id])
+    conn ??= await Database.getConnection()
+    const [result] = await conn.query(this.#findUserByIdQuery, [id])
     return result
   }
 

@@ -1,9 +1,6 @@
-import { Card, Carousel, List } from "antd"
 import Navbar from "../component/Navbar"
 import TitleBar from "../component/TitleBar"
 import Banner from "../component/Banner"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faArrowRight, faBars, faPuzzlePiece } from "@fortawesome/free-solid-svg-icons"
 import Content from "../component/Content"
 
 function MainPage() {

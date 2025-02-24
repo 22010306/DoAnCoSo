@@ -1,3 +1,4 @@
+// api/auth/
 const router = require('express').Router()
 
 router.use('/authenticate', require('./api/authenticate'))

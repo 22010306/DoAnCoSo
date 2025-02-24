@@ -5,7 +5,6 @@ const { v4 } = require('uuid')
 
 const Database = require('../../database')
 const User = require('./user')
-const { convertDateToSQL } = require('../../utilities/date')
 
 class LoginToken {
   static #GetSecretValue() { return "test" }
@@ -29,26 +28,18 @@ LIMIT 1`
 
   static #createQuery = `
 INSERT INTO 
-login_token (id, token, refresh_token, expireAt, user)
-VALUES (?, ?, ?, ?, ?)`
+login_token (id, token, user)
+VALUES (?, ?, ?)`
   static async Create(user = {}) {
     const conn = await Database.getConnection()
 
-    const [token] = await this.FindTokenByUserId({ id: user.id }, conn)
-    if (token) return token
-
-    const refresh_token = randomstring.generate(16)
-    const expireAt = new Date()
-    expireAt.setDate(expireAt.getDate() + 1)
     const newToken = {
       id: v4(),
-      expireAt: convertDateToSQL(expireAt),
-      refresh_token,
-      token: jwt.sign({ userId: user.id, refresh_token }, this.#GetSecretValue()),
+      token: jwt.sign({ userId: user.id }, this.#GetSecretValue()),
       user: user.id
     }
 
-    await conn.query(this.#createQuery, [newToken.id, newToken.token, newToken.refresh_token, newToken.expireAt, newToken.user])
+    await conn.query(this.#createQuery, [newToken.id, newToken.token, newToken.user])
     return newToken
   }
 
