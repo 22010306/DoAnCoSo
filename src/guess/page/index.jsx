@@ -4,8 +4,6 @@ import { useSelector } from "react-redux"
 import { getState } from "../../app/redux/selectors"
 
 function GuessPage() {
-  const state = useSelector(getState)
-  console.log(state)
   return (
     <Routes>
       <Route index element={<MainPage />} />

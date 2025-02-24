@@ -1,4 +1,4 @@
-// api/auth/
+// api/auth/authenticate
 const router = require('express').Router()
 
 const LoginToken = require('../model/login_token')
@@ -6,15 +6,13 @@ const User = require('../model/user')
 
 router.post('/register', async function (req, res) {
   try {
-    const user = await User.Create(req.body)
+    const user = await User.RegisterAccount(req.body)
     if (user) return res.send({
       success: true,
       message: "Register success.",
       data: null
     })
-  } catch (error) {
-
-  }
+  } catch (error) { console.log(error) }
   res.json({
     success: false,
     message: "Can't create your account.",

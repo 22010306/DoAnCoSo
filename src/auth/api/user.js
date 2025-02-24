@@ -22,6 +22,24 @@ router.post('/', async function (req, res) {
   res.json(result)
 })
 
+router.post('/admin-user', async function (req, res) {
+  try {
+    console.log(req.body)
+    const result = await User.RegisterAdminAccount(req.body)
+    res.json({
+      success: true,
+      message: "Create admin account.",
+      data: null
+    })
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "Fail.",
+      data: null
+    })
+  }
+})
+
 // Read user
 router.get('/', async function (req, res) {
   const result = await User.Read()

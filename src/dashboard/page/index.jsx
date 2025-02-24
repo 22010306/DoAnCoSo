@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ProtectedRoute from "../../auth/component/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
-import { getPermissions } from "../../auth/redux/selectors";
+import { getPages } from "../../auth/redux/selectors";
 import { authPermission } from "../../auth/redux/reducer";
 
 function DashboardPage({ }) {

@@ -42,4 +42,4 @@ CREATE TABLE meta_table (
     data                    VARCHAR(4096)
 );
 
-SELECT * FROM login_token
+SELECT * FROM user

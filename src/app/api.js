@@ -9,4 +9,8 @@ router.get('/', (req, res) => {
   res.send('/app/api.js')
 })
 
+router.use('/*', function (req, res) {
+  res.json({ message: "Cant find route", success: false })
+})
+
 module.exports = router

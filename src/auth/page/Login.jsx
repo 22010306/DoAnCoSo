@@ -2,35 +2,47 @@ import { Button, Col, Form, Input, Row } from "antd"
 import Password from "antd/es/input/Password"
 import { useEffect, useRef } from "react"
 import { useSelector } from "react-redux"
-import { getPermissions } from "../redux/selectors"
+import { getPages } from "../redux/selectors"
 
 function Login() {
-  const ath = useSelector(getPermissions)
-  console.log(ath)
+
   useEffect(function () {
 
   }, [])
 
-  function onFormSubmit(e) {
-    // const data = Object.fromEntries(new FormData(form.current))
-    // console.log(data)
-    console.log(e)
+  async function onFormSubmit(e) {
+    e.preventDefault()
+    const data = Object.fromEntries(new FormData(e.target))
+    console.log(data)
+    const result = await fetch('/api/auth/authenticate/login', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(a => a.json())
+    if (!result.success) return
+
+    localStorage.setItem('token', result.data.token)
+    document.location.replace('/dashboard')
   }
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-cyan-800">
-      <Form className="border bg-cyan-400 p-20" layout="vertical" onValuesChange={onFormSubmit}>
-        <Form.Item label={<p className="font-bold">Họ và tên</p>}>
-          <Input />
-        </Form.Item>
-        <Form.Item label={<p className="font-bold">Mật khẩu</p>}>
-          <Password />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" >Submit</Button>
-        </Form.Item>
-      </Form>
-    </div>
+      <form className="flex flex-col gap-5 border-2 border-white rounded-lg bg-cyan-400 p-20" layout="vertical" onSubmit={onFormSubmit}>
+        <div>
+          <label htmlFor="emailInput" className="font-bold text-xl">Email</label>
+          <Input id="emailInput" name="email" />
+        </div>
+
+        <div>
+          <label htmlFor="emailInput" className="font-bold text-xl">Mật khẩu</label>
+          <Password id="passwordInput" name="password" />
+        </div>
+
+        <Button htmlType="submit" type="primary">Đăng nhập</Button>
+      </form>
+    </div >
   )
 }
 

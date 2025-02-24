@@ -11,36 +11,26 @@ export const loginAccount = createAsyncThunk(
 export const authPermission = createAsyncThunk(
   'auth/getPermissions',
   async function (token, thunkAPI) {
-
-    console.log(token)
-
-    await sleep(1000)
-    const perm = {
-      "success": true,
-      "message": "Success.",
-      "permissions": {
-        "/": true,
-        "/auth": true,
-        "/dashboard": false
-      }
-    }
-    return perm.permissions
+    const result = await fetch('/api/auth/authorize/access-page', {
+      method: "GET",
+      headers: { authorization: token }
+    }).then(a => a.json())
+    console.log(result)
+    return result.permissions
   }
 )
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    token: '',
-    permission: {}
+    pages: {}
   },
   reducers: {
 
   },
   extraReducers(builder) {
     builder.addCase(authPermission.fulfilled, (state, action) => {
-      console.log(action)
-      state.permission = { ...action.payload }
+      state.pages = { ...action.payload }
     })
   }
 })

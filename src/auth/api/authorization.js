@@ -4,15 +4,24 @@ const User = require('../model/user')
 // api/auth/authorize
 const router = require('express').Router()
 
-router.get('/permissions', async function (req, res) {
+router.get('/access-page', async function (req, res) {
   let param, result, user
   try {
     param = req.headers.authorization
     result = LoginToken.ParseToken(param.split(' ')[1])
-    user = await User.FindUserById({ id: result.userId })
+    user = (await User.FindUserById({ id: result.userId }))[0]
   } catch (error) { }
+  if (user && user.role === 'admin') return res.json({
+    success: true,
+    message: 'Success.',
+    permissions: {
+      '/': true,
+      '/auth': true,
+      '/dashboard': true,
+    }
+  })
 
-  if (!user || user.role === 'guess') return res.json({
+  return res.json({
     success: true,
     message: 'Success.',
     permissions: {
@@ -22,15 +31,7 @@ router.get('/permissions', async function (req, res) {
     }
   })
 
-  res.json({
-    success: true,
-    message: 'Success.',
-    permissions: {
-      '/': true,
-      '/auth': true,
-      '/dashboard': true,
-    }
-  })
+
 })
 
 module.exports = router

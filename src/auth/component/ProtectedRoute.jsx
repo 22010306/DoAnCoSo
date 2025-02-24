@@ -2,17 +2,16 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
 import { authPermission } from "../redux/reducer"
-import { getPermissions } from "../redux/selectors"
+import { getPages } from "../redux/selectors"
 
 function ProtectedRoute({ children, loading = 'loading...', path = '/' }) {
   const dispatch = useDispatch()
 
   const [view, setView] = useState(1)
-  const perms = useSelector(getPermissions)
+  const perms = useSelector(getPages)
 
   useEffect(function () {
-    const paths = Object.keys(perms)
-      .sort((a, b) => b.length - a.length)
+    const paths = Object.keys(perms).sort((a, b) => b.length - a.length)
     if (paths.length === 0) return
 
     const path = document.location.pathname
@@ -22,7 +21,7 @@ function ProtectedRoute({ children, loading = 'loading...', path = '/' }) {
   }, [perms])
 
   useEffect(function () {
-    dispatch(authPermission(''))
+    dispatch(authPermission(`Bearer ${localStorage.getItem('token')}`))
   }, [])
 
   if (view === 1) return loading

@@ -1,3 +1,3 @@
-export function getState(state) {
-  return state
+export function getAuth(state) {
+  return state.auth
 }

@@ -2,7 +2,7 @@ function getUser() {
 
 }
 
-export function getPermissions(state) {
+export function getPages(state) {
   // console.log(state)
-  return state.auth.permission
+  return state.auth.pages
 }

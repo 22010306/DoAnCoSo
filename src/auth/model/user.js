@@ -26,12 +26,22 @@ VALUES (?, ?, ?, ?)`
 
     if (!conn) conn = await Database.getConnection()
     await conn.query(this.#createQuery, [id, name, email, hash])
-    return new User(id, name, email, password)
+    return { id, name, email, password }
   }
-
   static async RegisterAccount({ name, email, password }, conn) {
     conn ??= await Database.getConnection()
     return this.Create({ name, email, password })
+  }
+
+  static #registerAdminAccountQuery = `
+INSERT INTO user (id, name, email, password, role) 
+VALUES (?, ?, ?, ?, 'admin')`
+  static async RegisterAdminAccount({ name, email, password }, conn) {
+    const hash = await bcrypt.hash(password, 12)
+    const id = v4()
+    conn ??= await Database.getConnection()
+    await conn.query(this.#registerAdminAccountQuery, [id, name, email, hash])
+    return { id, name, email, password }
   }
 
   static #selectRangeQuery = `
@@ -87,12 +97,7 @@ SET deleteAt = ? WHERE id = ?`
     await conn.query(this.#deleteQuery, [[date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-'), id])
   }
 
-  constructor(id, name, email, password) {
-    this.id = id
-    this.name = name
-    this.email = email
-    this.password = password
-  }
+
 }
 
 module.exports = User
