@@ -7,7 +7,7 @@ import GuessPage from "../guess/page"
 import DashboardPage from "../dashboard/page"
 
 function App() {
-  fetch('api')
+  fetch('/api')
     .then(a => a.text())
     .then(console.log)
 
