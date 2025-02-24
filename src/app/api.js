@@ -6,7 +6,7 @@ router.use('/auth', require('../auth/api'))
 
 // default
 router.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('/app/api.js')
 })
 
 module.exports = router

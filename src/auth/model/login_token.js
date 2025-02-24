@@ -56,6 +56,7 @@ VALUES (?, ?, ?)`
   static async Delete({ }) {
 
   }
+
   constructor(id, token, refresh_token, expireAt, user) {
     this.id = id;
     this.token = token;

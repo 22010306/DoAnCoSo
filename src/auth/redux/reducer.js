@@ -1,17 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { sleep } from "../../utilities/other";
 
-const authPermission = createAsyncThunk(
+export const loginAccount = createAsyncThunk(
+  'auth/login',
+  async function (account, thinkAPI) {
+
+  }
+)
+
+export const authPermission = createAsyncThunk(
   'auth/getPermissions',
   async function (token, thunkAPI) {
-    const result = await fetch('/api/authorize/permissions', {
-      method: "GET",
-      headers: {
-        'Authorization': `Bearer ${token}`
+
+    console.log(token)
+
+    await sleep(1000)
+    const perm = {
+      "success": true,
+      "message": "Success.",
+      "permissions": {
+        "/": true,
+        "/auth": true,
+        "/dashboard": false
       }
-    })
-      .then(data => data.json())
-    console.log(result)
-    return result
+    }
+    return perm.permissions
   }
 )
 
@@ -27,6 +40,7 @@ const authSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(authPermission.fulfilled, (state, action) => {
       console.log(action)
+      state.permission = { ...action.payload }
     })
   }
 })

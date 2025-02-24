@@ -1,4 +1,4 @@
-
+// api/auth/
 const router = require('express').Router()
 
 const LoginToken = require('../model/login_token')
