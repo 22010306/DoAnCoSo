@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
-import { authPermission } from "../redux/reducer"
-import { getPages } from "../redux/selectors"
+import { authPermission } from "../auth/redux/reducer"
+import { getPages } from "../auth/redux/selectors"
 
 function ProtectedRoute({ children, loading = 'loading...', path = '/' }) {
   const dispatch = useDispatch()

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ProtectedRoute from "../../auth/component/ProtectedRoute";
+import ProtectedRoute from "../../components/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { getPages } from "../../auth/redux/selectors";
 import { authPermission } from "../../auth/redux/reducer";
