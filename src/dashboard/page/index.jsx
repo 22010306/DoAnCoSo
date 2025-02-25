@@ -6,12 +6,14 @@ import { authPermission } from "../../auth/redux/reducer";
 import { Route, Routes } from "react-router-dom";
 
 import ProductPage from "../../product/page";
+import Dashboard from "./Dashboard";
 
 function DashboardPage({ }) {
   return (
     <ProtectedRoute route="/dashboard">
-      <Routes>
-        <Route path="product" element={<ProductPage />} />
+      <Routes >
+        <Route index element={<Dashboard />} />
+        <Route path="/product/*" element={<ProductPage />} />
       </Routes>
     </ProtectedRoute>
   )
