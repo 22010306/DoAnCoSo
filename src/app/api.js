@@ -1,9 +1,9 @@
 // api/
 const router = require('express').Router()
 
-router.use('/file', require('../uploadFile/api'))
-router.use('/auth', require('../auth/api'))
-router.use('/product', require('../product/api'))
+router.use('/file', require('../feature/uploadFile/api'))
+router.use('/auth', require('../feature/auth/api'))
+router.use('/product', require('../feature/product/api'))
 
 // default
 router.get('/', (req, res) => {

@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 
-import CreateProduct from "./Create"
+import CreateProduct from "./Write"
 import ReadDetailProduct from "./ReadDetail"
 import ReadProduct from "./Read"
 

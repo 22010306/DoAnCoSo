@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-regular-svg-icons"
 import { faArrowTrendUp, faBox, faCube, faList, faMousePointer, faWarehouse } from "@fortawesome/free-solid-svg-icons"
 
-import useWindowDimensions from "../../hooks/useWindowDimensions"
+import useWindowDimensions from "../../../hooks/useWindowDimensions"
 import DashboardService from "../component/DashboardService"
 import Navbar from "../component/Navbar"
 

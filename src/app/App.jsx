@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Provider, useSelector } from "react-redux"
 
 import store from "./redux/store"
-import AuthPage from "../auth/page"
-import GuessPage from "../guess/page"
-import DashboardPage from "../dashboard/page"
+import AuthPage from "../feature/auth/page"
+import GuessPage from "../feature/guess/page"
+import DashboardPage from "../feature/dashboard/page"
 
 function App() {
   fetch('/api')

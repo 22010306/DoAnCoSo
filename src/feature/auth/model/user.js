@@ -1,7 +1,7 @@
 const { v4 } = require('uuid')
 const bcrypt = require('bcrypt')
 const randomstring = require('randomstring')
-const Database = require('../../database')
+const Database = require('../../../app/database')
 
 class User {
   static async GenerateUser() {
@@ -96,8 +96,6 @@ SET deleteAt = ? WHERE id = ?`
     const conn = await Database.getConnection()
     await conn.query(this.#deleteQuery, [[date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-'), id])
   }
-
-
 }
 
 module.exports = User

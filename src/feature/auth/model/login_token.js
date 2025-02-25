@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const randomstring = require('randomstring')
 const { v4 } = require('uuid')
 
-const Database = require('../../database')
+const Database = require('../../../app/database')
 const User = require('./user')
 
 class LoginToken {

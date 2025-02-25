@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
-import { authPermission } from "../auth/redux/reducer"
-import { getPages } from "../auth/redux/selectors"
+
+import { authPermission } from "../feature/auth/redux/reducer"
+import { getPages } from "../feature/auth/redux/selectors"
 
 function ProtectedRoute({ route, children, loading = 'loading...', path = '/' }) {
   const dispatch = useDispatch()
@@ -14,7 +15,9 @@ function ProtectedRoute({ route, children, loading = 'loading...', path = '/' })
     setView(pages[route] === false ? 3 : 2)
   }, [pages])
 
+
   useEffect(function () {
+
     if (pages[route] == null)
       dispatch(authPermission({
         token: `Bearer ${localStorage.getItem('token')}`,
