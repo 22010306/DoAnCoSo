@@ -3,11 +3,16 @@ import ProtectedRoute from "../../components/ProtectedRoute";
 import { useDispatch, useSelector } from "react-redux";
 import { getPages } from "../../auth/redux/selectors";
 import { authPermission } from "../../auth/redux/reducer";
+import { Route, Routes } from "react-router-dom";
+
+import ProductPage from "../../product/page";
 
 function DashboardPage({ }) {
   return (
-    <ProtectedRoute>
-      <h1>tedddst</h1>
+    <ProtectedRoute route="/dashboard">
+      <Routes>
+        <Route path="product" element={<ProductPage />} />
+      </Routes>
     </ProtectedRoute>
   )
 }

@@ -14,24 +14,16 @@ router.get('/access-page', async function (req, res) {
   if (user && user.role === 'admin') return res.json({
     success: true,
     message: 'Success.',
-    permissions: {
-      '/': true,
-      '/auth': true,
-      '/dashboard': true,
-    }
+    data: { access: true }
   })
+  console.log(req.query)
 
-  return res.json({
-    success: true,
-    message: 'Success.',
-    permissions: {
-      '/': true,
-      '/auth': true,
-      '/dashboard': false,
-    }
-  })
-
-
+  if (req.query.path.includes('dashboard'))
+    return res.json({
+      success: true,
+      message: 'Success.',
+      data: { access: false }
+    })
 })
 
 module.exports = router

@@ -1,2 +1,2 @@
-GET http://localhost:3000/api/auth/authorize/access-page
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5OGFlMjA5Ni1mN2Q1LTQ5NjAtOTU1NS1iOGQ1OTUzMDQzZDkiLCJpYXQiOjE3NDA0MTE1MjZ9.LooTMMLH664WTG4mDt26YUBN-ZfNi2R9sivyfe8E7Ys
+GET http://localhost:3000/api/auth/authorize/access-page?path=/dashboard
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MGRiZGIyNS02OTJiLTQ0ZTItODA0MC04ZjFlNmNjMjkyYWEiLCJpYXQiOjE3NDA0NDc2MjR9.C20AjSB9tkTAGzrszJ3_4iywWQ7S22_-_2S0kAAoXNE

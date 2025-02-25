@@ -1,6 +1,7 @@
 import { faArrowRight, faBars, faPuzzlePiece } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Card, Carousel, List } from "antd";
+import { Link } from "react-router-dom";
 
 const data = [
   "Bộ sưu tập mới",
@@ -70,13 +71,13 @@ function Content() {
         {/* San pham khuyen mai */}
         <Card variant="outlined" title={<ContentHeader icon={faPuzzlePiece} title="Sản phẩm khuyến mãi" />}>
           {shoes.map((shoe, index) => (
-            <a key={index} className={[index > 0 ? "mt-2" : "", "flex gap-3 items-center "].join(' ')}>
+            <Link key={index} className={[index > 0 ? "mt-2" : "", "flex gap-3 items-center "].join(' ')}>
               <img src={shoe.img} className="w-auto h-20 border border-gray-400" />
               <div>
                 <p className="text-lg font-medium text-gray-800">{shoe.name}</p>
                 <p className="text-lg font-medium text-red-800">{shoe.price}</p>
               </div>
-            </a>
+            </Link>
           ))}
         </Card>
       </div>

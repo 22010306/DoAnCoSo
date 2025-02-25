@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom"
 
 
 function TitleLink({ children, href }) {
   return (
     <div className="flex px-2 items-center h-full text-white hover:bg-red-700 uppercase">
-      <a className="text-lg" href={href}>{children}</a>
+      <Link className="text-lg" to={href}>{children}</Link>
     </div>
   )
 }

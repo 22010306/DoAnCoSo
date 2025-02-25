@@ -10,13 +10,13 @@ export const loginAccount = createAsyncThunk(
 
 export const authPermission = createAsyncThunk(
   'auth/getPermissions',
-  async function (token, thunkAPI) {
-    const result = await fetch('/api/auth/authorize/access-page', {
+  async function ({ token, path }, thunkAPI) {
+    const result = await fetch(`/api/auth/authorize/access-page?path=${path}`, {
       method: "GET",
       headers: { authorization: token }
     }).then(a => a.json())
     console.log(result)
-    return result.permissions
+    return { [path]: result.data.access }
   }
 )
 
@@ -30,7 +30,8 @@ const authSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(authPermission.fulfilled, (state, action) => {
-      state.pages = { ...action.payload }
+      state.pages = { ...state.pages, ...action.payload }
+      // state.pages = { ...action.payload }
     })
   }
 })

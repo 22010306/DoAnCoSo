@@ -7,7 +7,6 @@ const env = {
   database: process.env.DB_NAME
 }
 
-
 class Database {
   static async getConnection() {
     return await mysql.createConnection(env)

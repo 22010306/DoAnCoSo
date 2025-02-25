@@ -41,5 +41,3 @@ CREATE TABLE meta_table (
     createAt                DATE,
     data                    VARCHAR(4096)
 );
-
-SELECT * FROM user
