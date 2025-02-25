@@ -23,41 +23,34 @@ const data = [
   { key: '21', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
 ];
 
-
-
 function ReadProduct() {
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen overflow-x-hidden">
       <Navbar />
-      <div className="m-10 text-xl">
-        <Breadcrumb items={[
-          { title: <Link to="/dashboard" >Dashboard</Link> },
-          { title: <p>Product</p> },
-        ]} />
-      </div>
-      <div className="ml-10 my-5 w-100 flex gap-2">
-        <Input size="large" placeholder="Tìm kiếm" />
-        <Button size="large" variant="solid" color="blue">Tìm kiếm</Button>
-      </div>
-      <Table className="m-10" bordered dataSource={data} size="small" pagination={{ pageSize: 15 }}>
+      <div className="flex flex-col gap-2 p-10">
+        <div className="text-xl">
+          <Breadcrumb items={[
+            { title: <Link to="/dashboard" >Dashboard</Link> },
+            { title: <p>Product</p> },
+          ]} />
+        </div>
+        <div className="my-5 w-100 flex gap-2">
+          <Input size="large" placeholder="Tìm kiếm" />
+          <Button size="large" variant="solid" color="blue">Tìm kiếm</Button>
+        </div>
+        <Table bordered dataSource={data} size="small" pagination={{ pageSize: 10 }}
+          footer={() => <Button variant="solid" color="blue"><FontAwesomeIcon icon={faPlus} /></Button>}>
+          <Column title="First Name" dataIndex="firstName" key="firstName" />
 
-        <Column title="First Name" dataIndex="firstName" key="firstName" />
-
-        <Column title="Age" dataIndex="age" key="age" />
-        <Column title="Address" dataIndex="address" key="address" />
-        <Column title="Tags" dataIndex="tags" key="tags"
-          render={(tags) => (
-            <>
-              {tags.map((tag) => {
-                let color = tag.length > 5 ? 'geekblue' : 'green';
-                if (tag === 'loser') color = 'volcano';
-
-                return <Tag color={color} key={tag}>{tag.toUpperCase()}</Tag>;
-              })}
-            </>
+          <Column title="Action" className="w-0" key="action" render={(_, record) => (
+            <Space size="middle">
+              <Button variant="solid" color="blue"><FontAwesomeIcon icon={faInfo} /></Button>
+              <Button variant="solid" color="red"><FontAwesomeIcon icon={faTrash} /></Button>
+            </Space>
           )}
-        />
-      </Table>
+          />
+        </Table>
+      </div>
     </div>
   )
 }
