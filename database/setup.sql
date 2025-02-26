@@ -39,26 +39,7 @@ DROP TABLE IF EXISTS product;
 CREATE TABLE product (
     id                      VARCHAR(255)            PRIMARY KEY,
     name                    VARCHAR(255)            NOT NULL,
-    description             VARCHAR(255)          
-);
-
-DROP TABLE IF EXISTS product_image;
-CREATE TABLE product_image (
-    id                      VARCHAR(255)            PRIMARY KEY,
-    url                     VARCHAR(255)            UNIQUE,
-    product                 VARCHAR(255),
-
-    FOREIGN KEY(product) REFERENCES product(id)
-);
-
-DROP TABLE IF EXISTS price_history;
-CREATE TABLE price_history (
-    id                      VARCHAR(255)            PRIMARY KEY,
     price                   INT                     NOT NULL,
-    updateAt                DATE                    NOT NULL,
-    userUpdate              VARCHAR(255)            NOT NULL,
-    product                 VARCHAR(255)            NOT NULL,   
-
-    FOREIGN KEY(userUpdate) REFERENCES user(id),
-    FOREIGN KEY(product) REFERENCES product(id)
+    description             VARCHAR(1024),   
+    image                   VARCHAR(1024)
 );

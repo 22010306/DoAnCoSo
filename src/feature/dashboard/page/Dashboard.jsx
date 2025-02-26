@@ -30,20 +30,14 @@ function Dashboard() {
           <p className="text-2xl font-bold">Khách hàng</p>
         </DashboardService>
 
-        {/* Resources */}
-        <DashboardService to="/resource" className="bg-cyan-400 text-white" key="resource" data-grid={{ x: 0, y: 1, w: 4, h: 1, minW: 2, }}>
-          <FontAwesomeIcon icon={faCube} size="4x" />
-          <p className="text-2xl font-bold">Tài nguyên</p>
-        </DashboardService>
-
         {/* Statistics */}
-        <DashboardService to="/statistic" className="bg-purple-400 text-white" key="statistic" data-grid={{ x: 4, y: 1, w: 4, h: 1, minW: 2, }}>
+        <DashboardService to="/statistic" className="bg-purple-400 text-white" key="statistic" data-grid={{ x: 0, y: 1, w: 4, h: 1, minW: 2, }}>
           <FontAwesomeIcon icon={faArrowTrendUp} size="4x" />
           <p className="text-2xl font-bold">Thống kê </p>
         </DashboardService>
 
         {/* Orders */}
-        <DashboardService to="/statistic" className="bg-fuchsia-400 text-white" key="order" data-grid={{ x: 8, y: 1, w: 4, h: 1, minW: 2, }}>
+        <DashboardService to="/statistic" className="bg-fuchsia-400 text-white" key="order" data-grid={{ x: 8, y: 0, w: 4, h: 1, minW: 2, }}>
           <FontAwesomeIcon icon={faList} size="4x" />
           <p className="text-2xl font-bold">Đơn hàng</p>
         </DashboardService>

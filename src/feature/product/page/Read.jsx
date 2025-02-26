@@ -8,19 +8,7 @@ import { faGlasses, faInfo, faPen, faPlus, faTrash } from "@fortawesome/free-sol
 import { Link } from "react-router-dom";
 
 const data = [
-  { key: '1', firstName: 'John', lastName: 'Brown', age: 32, address: 'New York No. 1 Lake Park', tags: ['nice', 'developer'], },
-  { key: '2', firstName: 'Jim', lastName: 'Green', age: 42, address: 'London No. 1 Lake Park', tags: ['loser'], },
-  { key: '4', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '5', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '6', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '7', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '8', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '9', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '04', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '10', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '11', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '12', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
-  { key: '21', firstName: 'Joe', lastName: 'Black', age: 32, address: 'Sydney No. 1 Lake Park', tags: ['cool', 'teacher'], },
+  {}
 ];
 
 function ReadProduct() {
@@ -40,11 +28,12 @@ function ReadProduct() {
         </div>
         <Table bordered dataSource={data} size="small" pagination={{ pageSize: 10 }}
           footer={() => <Button variant="solid" color="blue"><FontAwesomeIcon icon={faPlus} /></Button>}>
-          <Column title="First Name" dataIndex="firstName" key="firstName" />
-
-          <Column title="Action" className="w-0" key="action" render={(_, record) => (
+          <Column title="Tên sản phẩm" dataIndex="name" key="name" />
+          <Column title="Giá" dataIndex="price" key="price" />
+          <Column title="Mô tả" dataIndex="description" key="description" />
+          <Column className="w-0" key="action" render={(_, record) => (
             <Space size="middle">
-              <Button variant="solid" color="blue"><FontAwesomeIcon icon={faInfo} /></Button>
+              <Button variant="solid" color="blue"><FontAwesomeIcon icon={faPen} /></Button>
               <Button variant="solid" color="red"><FontAwesomeIcon icon={faTrash} /></Button>
             </Space>
           )}

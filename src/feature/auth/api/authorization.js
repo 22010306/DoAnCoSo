@@ -10,20 +10,16 @@ router.get('/access-page', async function (req, res) {
     param = req.headers.authorization
     result = LoginToken.ParseToken(param.split(' ')[1])
     user = (await User.FindUserById({ id: result.userId }))[0]
-  } catch (error) { }
-  if (user && user.role === 'admin') return res.json({
-    success: true,
-    message: 'Success.',
-    data: { access: true }
-  })
-  console.log(req.query)
+  } catch (error) {
+    console.error(error)
+  }
+
+  if (user && user.role === 'admin')
+    return res.json({ success: true, message: 'Success.', data: { access: true } })
 
   if (req.query.path.includes('dashboard'))
-    return res.json({
-      success: true,
-      message: 'Success.',
-      data: { access: false }
-    })
+    return res.json({ success: true, message: 'Success.', data: { access: false } })
+  return res.json({ success: true, message: 'Success.', data: { access: true } })
 })
 
 module.exports = router
