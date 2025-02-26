@@ -5,41 +5,54 @@ CREATE DATABASE IF NOT EXISTS test;
 
 USE test;
 
-DROP TABLE IF EXISTS role;
-CREATE TABLE role (
-    id                      VARCHAR(255)            PRIMARY KEY,
-    role                    VARCHAR(255)            NOT NULL UNIQUE
-);
-INSERT INTO role (id, role)
-VALUES      ('admin', 'admin'),
-            ('guess', 'guess');
-
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
-	id			            VARCHAR(255) 	        PRIMARY KEY,
-    name		            VARCHAR(255),
-    email		            VARCHAR(255)	        NOT NULL UNIQUE,
-    password	            VARCHAR(255)	        NOT NULL,
-    deleteAt	            DATE,
-    role                    VARCHAR(255)            DEFAULT 'guess',
-
-    FOREIGN KEY(role) REFERENCES role(id)
-);
-
-DROP TABLE IF EXISTS login_token;
-CREATE TABLE login_token (
-    id                      VARCHAR(255)            PRIMARY KEY,
-    token                   VARCHAR(255)            UNIQUE,
-    user                    VARCHAR(255)            UNIQUE,
-
-    FOREIGN KEY (user) REFERENCES user(id)
+    id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    name                VARCHAR(255),
+    phone               VARCHAR(255)        UNIQUE NOT NULL,
+    address             VARCHAR(255)        NOT NULL
+    isAdmin             BOOLEAN             DEFAULT FALSE
+    password            VARCHAR(1024),
 );
 
 DROP TABLE IF EXISTS product;
 CREATE TABLE product (
-    id                      VARCHAR(255)            PRIMARY KEY,
-    name                    VARCHAR(255)            NOT NULL,
-    price                   INT                     NOT NULL,
-    description             VARCHAR(1024),   
-    image                   VARCHAR(1024)
+    id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    name                VARCHAR(255)        NOT NULL,
+    price               INT                 NOT NULL,
+    description         VARCHAR(1024),
+    picture             VARCHAR(255)
+);
+
+DROP TABLE IF EXISTS payment_type;
+CREATE TABLE payment_type (
+    id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    name                VARCHAR(32)         UNIQUE
+);
+INSERT INTO payment_type (name)
+VALUES  ('thanh_toan_truc_tiep'),
+        ('chuyen_khoan_ngan_hang'),
+        ('chuyen_tien_buu_dien');
+
+
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders (
+    id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    createAt            DATETIME            DEFAULT CURRENT_TIMESTAMP,
+    customer            INT                 NOT NULL,
+    isCheckout          BOOLEAN             DEFAULT FALSE,
+
+    FOREIGN KEY(customer) REFERENCES customer(id)
+);
+
+DROP TABLE IF EXISTS product_order;
+CREATE TABLE product_order (
+    id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    number              INT                 NOT NULL,
+    product             INT                 NOT NULL,
+    orderID             INT                 NOT NULL,
+
+    FOREIGN KEY (orderID) REFERENCES orders(id),
+    FOREIGN KEY (product) REFERENCES product(id),
+    CONSTRAINT order_product UNIQUE (product, orderID)
 );

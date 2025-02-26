@@ -2,7 +2,7 @@
 const router = require('express').Router()
 
 router.use('/file', require('../feature/uploadFile/api'))
-router.use('/auth', require('../feature/auth/api'))
+router.use('/auth', require('../feature/user/api'))
 router.use('/product', require('../feature/product/api'))
 
 // default

@@ -6,3 +6,25 @@ Content-Type: application/json
   "price":"123",
   "description": "adcasfd"
 }
+
+###
+GET http://localhost:3000/api/product
+
+###
+PUT http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+  "id":"0b4f829f-31da-4d86-b8ba-12c4bc99baa3",
+  "name":"test",
+  "price":"123",
+  "description": "aaaa"
+}
+
+###
+DELETE http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+  "id":"0b4f829f-31da-4d86-b8ba-12c4bc99baa3"
+}

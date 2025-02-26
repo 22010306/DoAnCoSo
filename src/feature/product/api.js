@@ -1,10 +1,10 @@
-const Product = require('../models/product')
+const Product = require('./models/product')
 
 const router = require('express').Router()
 
 router.get('/', async function (req, res) {
   try {
-    const result = await Product.Read()
+    const result = await Product.Read({})
     console.log(result)
 
     return res.json({ success: true, message: 'Success', data: result[0] })
@@ -45,7 +45,7 @@ router.put('/', async function (req, res) {
 router.delete('/', async function (req, res) {
   try {
     const { id } = req.body
-    const result = await Product.Update({ id })
+    const result = await Product.Delete({ id })
     console.log(result)
 
     return res.json({ success: true, message: 'Success', })

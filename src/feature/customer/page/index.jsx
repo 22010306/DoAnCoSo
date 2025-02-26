@@ -27,7 +27,7 @@ function ProductTable() {
 
 }
 
-function ReadProduct() {
+function ReadCustomer() {
   return (
     <div className="w-screen h-screen overflow-x-hidden">
       <Navbar />
@@ -48,4 +48,4 @@ function ReadProduct() {
   )
 }
 
-export default ReadProduct
+export default ReadCustomer

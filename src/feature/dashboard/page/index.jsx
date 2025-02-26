@@ -1,10 +1,6 @@
-import { useEffect, useState } from "react";
-import ProtectedRoute from "../../../components/ProtectedRoute";
-import { useDispatch, useSelector } from "react-redux";
-import { getPages } from "../../auth/redux/selectors";
-import { authPermission } from "../../auth/redux/reducer";
 import { Route, Routes } from "react-router-dom";
 
+import ProtectedRoute from "../../../components/ProtectedRoute";
 import ProductPage from "../../product/page";
 import Dashboard from "./Dashboard";
 

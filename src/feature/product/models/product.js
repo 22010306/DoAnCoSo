@@ -15,7 +15,7 @@ VALUES    (?, ?, ?, ?);`
   static #readQuery = `
 SELECT * 
 FROM product`
-  static async Read({ limit, offset }, conn) {
+  static async Read({ limit = 0, offset = 0 }, conn) {
     conn ??= await Database.getConnection()
     const result = await conn.query(this.#readQuery, [limit, offset])
     return result

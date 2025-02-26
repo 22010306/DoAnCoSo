@@ -1,4 +1,3 @@
-import { Avatar } from "antd"
 import ReactGridLayout from "react-grid-layout"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"

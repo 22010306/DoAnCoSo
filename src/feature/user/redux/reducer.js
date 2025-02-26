@@ -11,12 +11,7 @@ export const loginAccount = createAsyncThunk(
 export const authPermission = createAsyncThunk(
   'auth/getPermissions',
   async function ({ token, path }, thunkAPI) {
-    const result = await fetch(`/api/auth/authorize/access-page?path=${path}`, {
-      method: "GET",
-      headers: { authorization: token }
-    }).then(a => a.json())
-    console.log(result)
-    return { [path]: result.data.access }
+    return {}
   }
 )
 
