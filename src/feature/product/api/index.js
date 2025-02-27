@@ -27,4 +27,15 @@ router.get('/', async function (req, res) {
 })
 
 
+router.delete('/', async function (req, res) {
+  try {
+    const result = await deleteProduct(req.body)
+    console.log(result)
+    res.json({ message: "Success", success: true, data: result[0] })
+  } catch (error) {
+    console.log(error)
+    res.json({ message: "Fail", success: false, data: null })
+  }
+})
+
 module.exports = router

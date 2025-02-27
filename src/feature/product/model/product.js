@@ -29,7 +29,7 @@ const deleteProductQuery = `
 DELETE FROM product
 WHERE id = ?`
 async function deleteProduct({ id }) {
-  return await query(deleteProductQuery, [name, price, description, picture, id])
+  return await query(deleteProductQuery, [id])
 }
 
 module.exports = {
