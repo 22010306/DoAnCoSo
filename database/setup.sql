@@ -8,19 +8,18 @@ USE test;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    name                VARCHAR(255),
     mail                VARCHAR(255)		UNIQUE NOT NULL,
-    isAdmin             BOOLEAN             DEFAULT FALSE,
     password            VARCHAR(1024)
 );
 
-DROP TABLE IF EXISTS customer_data;
-CREATE TABLE customer_data (
+DROP TABLE IF EXISTS customer;
+CREATE TABLE customer (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    name                VARCHAR(255),
+    mail                VARCHAR(255),
     phone               VARCHAR(255)        UNIQUE NOT NULL,
-    address             VARCHAR(255)        NOT NULL,
-    user                INT                 NOT NULL,
-
-    FOREIGN KEY(user) REFERENCES user(id)
+    address             VARCHAR(255)        NOT NULL
 );
 
 DROP TABLE IF EXISTS product;
@@ -29,7 +28,7 @@ CREATE TABLE product (
     name                VARCHAR(255)        NOT NULL,
     price               INT                 NOT NULL,
     description         VARCHAR(1024),
-    picture             VARCHAR(255)
+    image               VARCHAR(255)
 );
 
 DROP TABLE IF EXISTS payment_type;
@@ -37,6 +36,7 @@ CREATE TABLE payment_type (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
     name                VARCHAR(32)         UNIQUE
 );
+
 INSERT INTO payment_type (name)
 VALUES  ('thanh_toan_truc_tiep'),
         ('chuyen_khoan_ngan_hang'),
@@ -46,10 +46,10 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
     createAt            DATETIME            DEFAULT CURRENT_TIMESTAMP,
-    customer            INT                 NOT NULL,
     isCheckout          BOOLEAN             DEFAULT FALSE,
+    customer            INT                 NOT NULL,
 
-    FOREIGN KEY(customer) REFERENCES user(id)
+    FOREIGN KEY(customer) REFERENCES customer(id)
 );
 
 DROP TABLE IF EXISTS product_order;

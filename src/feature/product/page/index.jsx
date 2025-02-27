@@ -1,14 +1,17 @@
-import { Route, Routes } from "react-router-dom"
+import CreateProduct from "./Create";
+import { Routes, Route } from "react-router-dom";
 
+import ProductPage from "./Product";
+import UpdateProduct from "./Update";
 
-import ReadProduct from "./Read"
-
-function ProductPage() {
+function ProductRoute() {
   return (
     <Routes>
-      <Route index element={<ReadProduct />} />
+      <Route index element={<ProductPage />} />
+      <Route path="/create" element={<CreateProduct />} />
+      <Route path="/update/:id" element={<UpdateProduct />} />
     </Routes>
   )
 }
 
-export default ProductPage
+export default ProductRoute

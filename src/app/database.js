@@ -7,10 +7,19 @@ const env = {
   database: process.env.DB_NAME
 }
 
-class Database {
-  static async getConnection() {
-    return await mysql.createConnection(env)
-  }
+const pool = mysql.createPool({
+  ...env,
+  connectionLimit: 20
+})
+
+async function query(query = '', params = []) {
+  const conn = await pool.getConnection()
+  const result = await conn.query(query, params)
+  conn.release()
+
+  return result
 }
 
-module.exports = Database
+module.exports = {
+  query
+}

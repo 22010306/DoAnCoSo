@@ -1,0 +1,30 @@
+// api/product
+
+const router = require('express').Router()
+
+const { createProduct, deleteProduct, readProduct, updateProduct } = require('../model/product')
+
+
+
+
+router.post('/', async function (req, res) {
+  try {
+    const result = await createProduct(req.body)
+    res.json({ message: "Success", success: true, data: { id: result[0].insertId } })
+  } catch (error) {
+    res.json({ message: "Fail", success: false, data: null })
+  }
+})
+
+router.get('/', async function (req, res) {
+  try {
+    const result = await readProduct()
+    console.log(result)
+    res.json({ message: "Success", success: true, data: result[0] })
+  } catch (error) {
+    res.json({ message: "Fail", success: false, data: null })
+  }
+})
+
+
+module.exports = router

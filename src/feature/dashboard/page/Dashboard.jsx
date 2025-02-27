@@ -27,13 +27,13 @@ function Dashboard() {
       </DashboardService>
 
       {/* Statistics */}
-      <DashboardService to="/statistic" className="bg-purple-400 text-white" key="statistic" data-grid={{ x: 0, y: 1, w: 4, h: 1, minW: 2, }}>
+      <DashboardService to="/dashboard/statistic" className="bg-purple-400 text-white" key="statistic" data-grid={{ x: 0, y: 1, w: 4, h: 1, minW: 2, }}>
         <FontAwesomeIcon icon={faArrowTrendUp} size="4x" />
         <p className="text-2xl font-bold">Thống kê </p>
       </DashboardService>
 
       {/* Orders */}
-      <DashboardService to="/statistic" className="bg-fuchsia-400 text-white" key="order" data-grid={{ x: 8, y: 0, w: 4, h: 1, minW: 2, }}>
+      <DashboardService to="/dashboard/order" className="bg-fuchsia-400 text-white" key="order" data-grid={{ x: 8, y: 0, w: 4, h: 1, minW: 2, }}>
         <FontAwesomeIcon icon={faList} size="4x" />
         <p className="text-2xl font-bold">Đơn hàng</p>
       </DashboardService>
