@@ -1,4 +1,4 @@
-function ProtectedRoute({ route, children, loading = 'loading...', path = '/' }) {
+function ProtectedRoute({ children }) {
   return children
 }
 

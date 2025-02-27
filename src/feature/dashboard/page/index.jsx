@@ -1,17 +1,19 @@
 import { Route, Routes } from "react-router-dom";
 
-import ProtectedRoute from "../../../components/ProtectedRoute";
 import ProductPage from "../../product/page";
 import Dashboard from "./Dashboard";
+import DashboardLayout from "./Layout";
 
-function DashboardPage({ }) {
+function DashboardPage(props) {
   return (
-    <ProtectedRoute route="/dashboard">
-      <Routes >
-        <Route index element={<Dashboard />} />
-        <Route path="/product/*" element={<ProductPage />} />
-      </Routes>
-    </ProtectedRoute>
+    <Routes >
+      <Route path="/" element={<DashboardLayout key="layout" />}>
+
+        <Route index element={<Dashboard key="dashboard" />} />
+
+        <Route path="/product/*" element={<ProductPage key="product" />} />
+      </Route>
+    </Routes>
   )
 }
 

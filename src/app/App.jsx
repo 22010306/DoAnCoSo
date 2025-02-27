@@ -5,7 +5,8 @@ import store from "./redux/store"
 
 import GuessPage from "../feature/guess/page"
 import DashboardPage from "../feature/dashboard/page"
-import AuthPage from "../feature/user/page"
+import AuthPage from "../feature/USER/page"
+
 
 function App() {
   fetch('/api')

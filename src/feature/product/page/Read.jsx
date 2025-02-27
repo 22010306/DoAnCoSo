@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../dashboard/component/Navbar";
 
 const data = [
-  {}
+
 ];
 
 
@@ -29,21 +29,18 @@ function ProductTable() {
 
 function ReadProduct() {
   return (
-    <div className="w-screen h-screen overflow-x-hidden">
-      <Navbar />
-      <div className="flex flex-col gap-2 p-10">
-        <div className="text-xl">
-          <Breadcrumb items={[
-            { title: <Link to="/dashboard" >Dashboard</Link> },
-            { title: <p>Product</p> },
-          ]} />
-        </div>
-        <div className="my-5 w-100 flex gap-2">
-          <Input size="large" placeholder="Tìm kiếm" />
-          <Button size="large" variant="solid" color="blue">Tìm kiếm</Button>
-        </div>
-        <ProductTable />
+    <div className="flex flex-col gap-2 p-10">
+      <div className="text-xl">
+        <Breadcrumb items={[
+          { title: <Link to="/dashboard" >Dashboard</Link> },
+          { title: <p>Product</p> },
+        ]} />
       </div>
+      <div className="my-5 w-100 flex gap-2">
+        <Input size="large" placeholder="Tìm kiếm" />
+        <Button size="large" variant="solid" color="blue">Tìm kiếm</Button>
+      </div>
+      <ProductTable />
     </div>
   )
 }

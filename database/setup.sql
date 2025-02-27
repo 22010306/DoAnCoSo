@@ -8,11 +8,19 @@ USE test;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
-    name                VARCHAR(255),
+    mail                VARCHAR(255)		UNIQUE NOT NULL,
+    isAdmin             BOOLEAN             DEFAULT FALSE,
+    password            VARCHAR(1024)
+);
+
+DROP TABLE IF EXISTS customer_data;
+CREATE TABLE customer_data (
+    id                  INT                 AUTO_INCREMENT PRIMARY KEY,
     phone               VARCHAR(255)        UNIQUE NOT NULL,
-    address             VARCHAR(255)        NOT NULL
-    isAdmin             BOOLEAN             DEFAULT FALSE
-    password            VARCHAR(1024),
+    address             VARCHAR(255)        NOT NULL,
+    user                INT                 NOT NULL,
+
+    FOREIGN KEY(user) REFERENCES user(id)
 );
 
 DROP TABLE IF EXISTS product;
@@ -34,7 +42,6 @@ VALUES  ('thanh_toan_truc_tiep'),
         ('chuyen_khoan_ngan_hang'),
         ('chuyen_tien_buu_dien');
 
-
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
@@ -42,7 +49,7 @@ CREATE TABLE orders (
     customer            INT                 NOT NULL,
     isCheckout          BOOLEAN             DEFAULT FALSE,
 
-    FOREIGN KEY(customer) REFERENCES customer(id)
+    FOREIGN KEY(customer) REFERENCES user(id)
 );
 
 DROP TABLE IF EXISTS product_order;
