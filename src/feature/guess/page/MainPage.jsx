@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Card, Carousel, List } from "antd";
 import { Link } from "react-router-dom";
 import Banner from "../component/Banner";
+import useCustomerAuth from "../../../hooks/useCustomerAuth";
+import { useEffect, useState } from "react";
+import ProductList from "../component/ProductList";
 
 const data = [
   "Bộ sưu tập mới",
@@ -14,6 +17,9 @@ const data = [
 ]
 
 const shoes = [
+  { img: "imgs/jpg/sanpham1.jpg", name: "Giày thể thao nam", price: "1.000.000đ" },
+  { img: "imgs/jpg/sanpham1.jpg", name: "Giày thể thao nam", price: "1.000.000đ" },
+  { img: "imgs/jpg/sanpham1.jpg", name: "Giày thể thao nam", price: "1.000.000đ" },
   { img: "imgs/jpg/sanpham1.jpg", name: "Giày thể thao nam", price: "1.000.000đ" },
   { img: "imgs/jpg/sanpham1.jpg", name: "Giày thể thao nam", price: "1.000.000đ" },
   { img: "imgs/jpg/sanpham1.jpg", name: "Giày thể thao nam", price: "1.000.000đ" },
@@ -30,6 +36,18 @@ function ContentHeader({ icon, title }) {
 }
 
 function MainPage() {
+  const auth = useCustomerAuth()
+  const [sanPham, setSanPham] = useState()
+
+  useEffect(function () {
+    fetch('/api/product')
+      .then(data => data.json())
+      .then(({ data }) => setSanPham(data))
+  }, [])
+
+  console.log(sanPham)
+
+  console.log(auth)
   return (
     <>
       <Banner />
@@ -62,7 +80,7 @@ function MainPage() {
           </Card>
 
           {/* San pham khuyen mai */}
-          <Card variant="outlined" title={<ContentHeader icon={faPuzzlePiece} title="Sản phẩm khuyến mãi" />}>
+          {/* <Card variant="outlined" title={<ContentHeader icon={faPuzzlePiece} title="Sản phẩm khuyến mãi" />}>
             {shoes.map((shoe, index) => (
               <Link key={index} className={[index > 0 ? "mt-2" : "", "flex gap-3 items-center "].join(' ')}>
                 <img src={shoe.img} className="w-auto h-20 border border-gray-400" />
@@ -72,22 +90,12 @@ function MainPage() {
                 </div>
               </Link>
             ))}
-          </Card>
+          </Card> */}
         </div>
 
         {/* right */}
         <div className="w-full overflow-hidden">
-          <List bordered grid={{ gutter: 16, column: 4 }} dataSource={shoes} header={<ContentHeader icon={faBars} title="Sản phẩm bán chạy" />}
-            renderItem={(item, index) => (
-              <div key={index} className={["m-2 p-2 flex flex-col justify-center gap-3 items-center "].join(' ')}>
-                <img src={item.img} className="w-auto h-30 border border-gray-400" />
-                <div>
-                  <p className="text-lg font-medium text-gray-800">{item.name}</p>
-                  <p className="text-lg font-medium text-red-800">{item.price}</p>
-                </div>
-              </div>
-            )}
-          />
+          <ProductList />
         </div>
       </div>
     </>

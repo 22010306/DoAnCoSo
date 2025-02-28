@@ -11,7 +11,7 @@ function TitleLink({ children, href }) {
 
 function TitleBar() {
   return (
-    <div className="px-80 py-5 bg-red-600 h-15 flex justify-between items-center">
+    <div className="2xl:px-80 lg:px-40 py-5 bg-red-600 h-15 flex justify-between items-center">
       {/* Left */}
       <div className="flex items-center h-full ">
         <TitleLink href="/">trang chủ</TitleLink>
@@ -21,7 +21,7 @@ function TitleBar() {
 
       {/* Right */}
       <div className="flex items-center h-full gap-2">
-        <img src="imgs\png\call.png" />
+        <img src="imgs\png\call.png" alt="" />
         <p className="text-xl text-white font-bold ">Hotline: 1234.567.789</p>
       </div>
     </div>

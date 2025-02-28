@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom"
-import Banner from "../component/Banner"
-import Navbar from "../component/Navbar"
-import TitleBar from "../component/TitleBar"
-import Footer from "../component/Footer"
+import Banner from "./Banner"
+import Navbar from "./Navbar"
+import TitleBar from "./TitleBar"
+import Footer from "./Footer"
 
 function Layout() {
   return (

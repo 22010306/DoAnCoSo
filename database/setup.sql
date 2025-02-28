@@ -16,12 +16,14 @@ CREATE TABLE user (
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    createAt            DATETIME            DEFAULT CURRENT_TIMESTAMP(),
     name                VARCHAR(255),
     mail                VARCHAR(255),
-    phone               VARCHAR(255)        UNIQUE NOT NULL,
-    address             VARCHAR(255)        NOT NULL
+    phone               VARCHAR(255),
+    address             VARCHAR(255)
 );
 
+-- lock
 DROP TABLE IF EXISTS product;
 CREATE TABLE product (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,

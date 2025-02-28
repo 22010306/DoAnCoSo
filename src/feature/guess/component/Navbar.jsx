@@ -1,6 +1,7 @@
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Button, ConfigProvider, Input, Space } from "antd"
+import { Link } from "react-router-dom"
 import colors from "tailwindcss/colors"
 
 const NavbarTheme = {
@@ -32,16 +33,12 @@ function Navbar() {
           <Button size="large" color="red" variant="solid">Tìm kiếm</Button>
         </Space.Compact>
 
-
-        <div className="relative">
+        <Link>
           <Button size="large" color="red" variant="solid" className="flex gap-2 items-center justify-center">
-            <FontAwesomeIcon icon={faCartShopping} color="#fff" size="2x" />
-            <div className="text-left font-bold text-white leading-4">
-              <p className="uppercase">giỏ hàng</p>
-              <p>940.000đ (02)</p>
-            </div>
+            <FontAwesomeIcon icon={faCartShopping} color="#fff" />
+            <p className="uppercase font-bold">giỏ hàng</p>
           </Button>
-        </div>
+        </Link>
       </div>
     </ConfigProvider>
   )
