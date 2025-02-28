@@ -1,11 +1,18 @@
 import { Breadcrumb, Button, Input, message, Splitter, Table, Upload } from "antd"
 import { Link, Navigate } from "react-router-dom";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductForm from "../component/ProductForm";
+import { useDispatch } from "react-redux";
+import updateSlice from "../redux/updateReducer";
 
 function CreateProduct({ }) {
+  const dispatch = useDispatch()
   const [messageApi, contextHolder] = message.useMessage();
+
+  useEffect(function () {
+    dispatch(updateSlice.actions.updateItem({}))
+  }, [])
 
   async function onFormSubmit(e) {
     e.preventDefault()

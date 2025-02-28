@@ -1,47 +1,29 @@
 import { Breadcrumb, Button, Input, message, Splitter, Table, Upload } from "antd"
 import { Link, Navigate, useParams } from "react-router-dom";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductForm from "../component/ProductForm";
+import useAPI from "../../../hooks/useApi";
+import { useDispatch } from "react-redux";
+import updateSlice from "../redux/updateReducer";
 
 function UpdateProduct({ }) {
+  const dispatch = useDispatch()
   const param = useParams()
-  console.log(param)
   const [messageApi, contextHolder] = message.useMessage();
 
+  console.log(param)
+
+  useEffect(function () {
+    fetch(`/api/product/${param.id}`)
+      .then(data => data.json())
+      .then(data => {
+        dispatch(updateSlice.actions.updateItem(data.data[0]))
+      })
+  }, [])
+
   async function onFormSubmit(e) {
-    e.preventDefault()
-    const formData = Object.fromEntries(new FormData(e.target))
-
-    // Upload image
-    const imageData = new FormData()
-    imageData.append('image', formData.image)
-
-    let result = await fetch('/api/product-image', {
-      method: "POST", body: imageData,
-    }).then(a => a.json())
-    formData.image = result
-
-    // upload product
-    result = await fetch('/api/product', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
-    }).then(data => data.json())
-
-    if (!result.success) return messageApi.open({
-      type: 'error',
-      content: "Tạo sản phẩm thất bại."
-    })
-
-    messageApi.open({
-      type: 'success',
-      content: "Tạo sản phẩm thành công."
-    })
-
-    setTimeout(function () {
-      document.location.replace('/dashboard/product/')
-    }, 1000)
+    e.preventDefault();
   }
 
   return (
@@ -55,7 +37,6 @@ function UpdateProduct({ }) {
 
       <ProductForm onFormSubmit={onFormSubmit} />
     </>
-
   )
 }
 
