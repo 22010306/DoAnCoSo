@@ -33,7 +33,7 @@ function Navbar() {
           <Button size="large" color="red" variant="solid">Tìm kiếm</Button>
         </Space.Compact>
 
-        <Link>
+        <Link to="/order">
           <Button size="large" color="red" variant="solid" className="flex gap-2 items-center justify-center">
             <FontAwesomeIcon icon={faCartShopping} color="#fff" />
             <p className="uppercase font-bold">giỏ hàng</p>

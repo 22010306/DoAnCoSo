@@ -13,7 +13,7 @@ function ProductDetail() {
     fetch(`/api/product/${param.id}`)
       .then(data => data.json())
       .then(({ data }) => setSanPham(data[0]))
-  }, [])
+  }, [param])
 
   console.log(sanPham)
 
@@ -38,12 +38,11 @@ function ProductDetail() {
           </div>
           <p className="mb-5">{sanPham?.description}</p>
           <form className="flex flex-col gap-5" onSubmit={onSubmit}>
-            <Input size="large" style={{ width: '300px' }} min={0} max={10} type="number" addonBefore="Số lượng" name="quantity" />
+            <Input size="large" style={{ width: '300px' }} value={1} min={0} max={10} type="number" addonBefore="Số lượng" name="quantity" />
             <Button size="large" className="w-min" htmlType="submit" variant="solid" color="red">Thêm vào giỏ <FontAwesomeIcon icon={faCartShopping} /></Button>
           </form>
         </div>
       </div>
-
       <ProductList />
     </div>
   )
