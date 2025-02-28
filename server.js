@@ -1,8 +1,14 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-
+const fs = require('fs')
 const app = express()
+
+
+// const folderPath = 'public/upload/product'
+// if (fs.existsSync(folderPath, { recursive: false }) === false) {
+//   fs.mkdirSync(folderPath,{recursive:true})
+// }
 
 app.use(cors())
 app.use(express.json())

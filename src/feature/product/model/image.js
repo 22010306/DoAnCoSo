@@ -7,7 +7,7 @@ const imagePath = '/upload/product'
 const folderPath = 'public/upload/product'
 
 if (fs.existsSync(folderPath, { recursive: false }) === false) {
-  fs.mkdirSync(folderPath)
+  fs.mkdirSync(folderPath, { recursive: true })
 }
 
 const upload = multer({

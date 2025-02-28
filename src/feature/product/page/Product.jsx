@@ -66,7 +66,7 @@ function ProductPage({ }) {
           <div className="flex justify-between">
             <CrudButton
               createHref="/dashboard/product/create"
-              updateHref={`/dashboard/product/update/${selectProduct?.id}`}
+              updateHref={'/dashboard/product' + (selectProduct.length > 0 ? `/update/${data[selectProduct[0]].id}` : '/')}
               deleteClick={onDeleteProduct}
               refreshClick={() => {
                 setSelectProduct([])

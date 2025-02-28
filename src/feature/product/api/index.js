@@ -2,10 +2,7 @@
 
 const router = require('express').Router()
 
-const { createProduct, deleteProduct, readProduct, updateProduct } = require('../model/product')
-
-
-
+const { createProduct, deleteProduct, readProduct, updateProduct, getProductById } = require('../model/product')
 
 router.post('/', async function (req, res) {
   try {
@@ -24,6 +21,19 @@ router.get('/', async function (req, res) {
   } catch (error) {
     res.json({ message: "Fail", success: false, data: null })
   }
+})
+
+router.get('/:id', async function (req, res) {
+  const id = req.params
+  const result = await getProductById({ id })
+  console.log(result)
+
+  res.json({ success: true, message: 'Success', data: result[0] })
+
+})
+
+router.put('/', async function (params) {
+
 })
 
 

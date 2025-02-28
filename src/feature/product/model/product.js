@@ -1,11 +1,20 @@
 const { query } = require('../../../app/database')
 
-const createNewProductQuery = `
+const createProductQuery = `
 INSERT INTO product (name, price, description, image)
 VALUES    (?, ?, ?, ?)`
 async function createProduct({ name, price, description, image }) {
-  const result = await query(createNewProductQuery, [name, price, description, image])
+  const result = await query(createProductQuery, [name, price, description, image])
   return result
+}
+
+const getProductByIdQuery = `
+SELECT * 
+FROM product 
+WHERE id = ?
+LIMIT 1`
+async function getProductById({ id }) {
+  return await query(getProductByIdQuery, [id])
 }
 
 const readProductQuery = `
@@ -35,6 +44,7 @@ async function deleteProduct({ id }) {
 module.exports = {
   createProduct,
   readProduct,
+  getProductById,
   updateProduct,
   deleteProduct
 }
