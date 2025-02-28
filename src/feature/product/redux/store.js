@@ -7,7 +7,7 @@ const store = configureStore({
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     serializableCheck: {
-      ignoredActions: ['updateProduct/updateItem'],
+      ignoredActions: ['updateProduct/updateItem', 'updateProduct/uploadImage/fulfilled'],
       ignoredPaths: ['update.formValue.image']
     }
   })

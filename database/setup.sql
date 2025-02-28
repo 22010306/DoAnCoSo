@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS product;
 CREATE TABLE product (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
     name                VARCHAR(255)        NOT NULL,
-    price               INT                 NOT NULL,
+    price               BIGINT UNSIGNED     NOT NULL,
     description         VARCHAR(1024),
     image               VARCHAR(255)
 );
@@ -42,13 +42,26 @@ VALUES  ('thanh_toan_truc_tiep'),
         ('chuyen_khoan_ngan_hang'),
         ('chuyen_tien_buu_dien');
 
+DROP TABLE IF EXISTS order_state;
+CREATE TABLE order_state (
+    id                  INT                 AUTO_INCREMENT PRIMARY KEY,
+    name                VARCHAR(255)        NOT NULL UNIQUE
+);
+INSERT INTO order_state (name)
+VALUES  ('khach_hang_dang_dat'),
+        ('khach_hang_da_dat'),
+        ('dang_van_chuyen'),
+        ('giao_hang_thanh_cong'),
+        ('khach_hang_huy_don');
+
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
     createAt            DATETIME            DEFAULT CURRENT_TIMESTAMP,
-    isCheckout          BOOLEAN             DEFAULT FALSE,
+    state               INT                 DEFAULT 0,
     customer            INT                 NOT NULL,
 
+    FOREIGN KEY(state) REFERENCES order_state(id),
     FOREIGN KEY(customer) REFERENCES customer(id)
 );
 

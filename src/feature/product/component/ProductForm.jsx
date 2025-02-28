@@ -1,26 +1,21 @@
 import { Button, Input } from "antd"
 import TextArea from "antd/es/input/TextArea"
-import { useEffect, useState } from "react"
+
 import { useDispatch, useSelector } from "react-redux"
 import { getProduct } from "../redux/selectors"
 import updateSlice from "../redux/updateReducer"
 
 function ProductForm({ onFormSubmit }) {
   const dispatch = useDispatch()
-  const { image, ...formValue } = useSelector(getProduct)
-
-  // useEffect(function () {
-  //   setImage(formValue.image || '#')
-  // }, [image])
+  const formValue = useSelector(getProduct)
 
   function onFormChange(e) {
     const elem = e.target
-    let data = { ...formValue }
-    if (elem.getAttribute('type') === 'file')
-      data[elem.name] = elem.files[0]
 
-    else data = { [elem.name]: elem.value }
-    dispatch(updateSlice.actions.updateItem(data))
+    dispatch(updateSlice.actions.updateItem({
+      ...formValue,
+      [elem.name]: elem.getAttribute('type') === 'file' ? elem.files[0] : elem.value
+    }))
   }
 
   return (
@@ -35,8 +30,8 @@ function ProductForm({ onFormSubmit }) {
             </label>
           </Button>
           <input id="upload-file" className="hidden" type="file" accept="image/*" name="image" placeholder="Tải ảnh " />
-          {!image && <img className="max-w-80 h-auto max-h-80 border-2 border-black " src="#" alt="" />}
-          {image && <img className="max-w-80 h-auto max-h-80 border-2 border-black " src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="" />}
+          {!formValue.image && <img className="max-w-80 h-auto max-h-80 border-2 border-black " src="#" alt="" />}
+          {formValue.image && <img className="max-w-80 h-auto max-h-80 border-2 border-black " src={typeof formValue.image === 'string' ? formValue.image : URL.createObjectURL(formValue.image)} alt="" />}
         </div>
         <div className="flex gap-5  flex-col w-150">
           <div>

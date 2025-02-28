@@ -32,8 +32,17 @@ router.get('/:id', async function (req, res) {
 
 })
 
-router.put('/', async function (params) {
+router.put('/', async function (req, res) {
+  try {
 
+    const body = req.body
+
+    const result = await updateProduct(body)
+    console.log(result)
+    res.json({ success: true, message: "Success", data: null })
+  } catch (error) {
+    res.json({ success: false, message: "Fail", data: null })
+  }
 })
 
 

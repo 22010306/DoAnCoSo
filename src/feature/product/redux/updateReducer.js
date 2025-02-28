@@ -1,9 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+
 
 const updateSlice = createSlice({
   name: "updateProduct",
   initialState: {
     formValue: {}
+  },
+  extraReducers(builder) {
+
   },
   reducers: {
     updateItem(state, action) {
@@ -13,5 +18,7 @@ const updateSlice = createSlice({
   }
 })
 
-export default updateSlice
+export default updateSlice;
+
+
 

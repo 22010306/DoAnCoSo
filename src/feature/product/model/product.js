@@ -27,11 +27,14 @@ const updateProductQuery = `
 UPDATE product
 SET   name = ?, 
       price = ?, 
-      description = ?, 
-      picture = ?
+      image = ?,
+      description = ?
 WHERE id = ?`
-async function updateProduct({ id, name, price, description, picture }) {
-  return await query(updateProductQuery, [name, price, description, picture, id])
+async function updateProduct({ id, name, price, image, description }) {
+  console.log(
+    'dafdsf'
+    , { id, name, price, image, description })
+  return await query(updateProductQuery, [name, price, image, description, id])
 }
 
 const deleteProductQuery = `

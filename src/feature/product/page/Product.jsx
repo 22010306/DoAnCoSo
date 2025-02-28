@@ -17,12 +17,12 @@ const columns = [
 function ProductPage({ }) {
   const [data, updateData] = useAPI('/api/product', {}, i => i?.data)
   const [selectProduct, setSelectProduct] = useState([])
+  const [search, setSearch] = useState("")
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(function () {
     updateData()
   }, [])
-
 
   const tableConfiguration = {
     type: 'radio',
@@ -38,8 +38,6 @@ function ProductPage({ }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: data[selectProduct[0]]?.id })
     }).then(a => a.json())
-
-    console.log(result)
 
     if (!result.success) return messageApi.open({
       type: 'error',
@@ -61,7 +59,10 @@ function ProductPage({ }) {
         { title: <p>Product</p> },
       ]} />
 
-      <TableData columns={columns} dataSource={data?.map((i, j) => ({ ...i, key: j }))} rowSelection={tableConfiguration}
+      <TableData
+        columns={columns}
+        dataSource={data?.filter(i => i.name.includes(search)).map((i, j) => ({ ...i, key: j }))}
+        rowSelection={tableConfiguration}
         title={() =>
           <div className="flex justify-between">
             <CrudButton
@@ -73,7 +74,7 @@ function ProductPage({ }) {
                 updateData()
               }}
             />
-            <SearchField />
+            <SearchField findClick={function (e) { setSearch(e) }} />
           </div>
         } />
     </>

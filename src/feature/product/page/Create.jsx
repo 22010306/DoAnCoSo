@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ProductForm from "../component/ProductForm";
 import { useDispatch } from "react-redux";
 import updateSlice from "../redux/updateReducer";
+import { uploadImage } from "../../../utilities/other";
 
 function CreateProduct({ }) {
   const dispatch = useDispatch()
@@ -19,13 +20,8 @@ function CreateProduct({ }) {
     const formData = Object.fromEntries(new FormData(e.target))
 
     // Upload image
-    const imageData = new FormData()
-    imageData.append('image', formData.image)
-
-    let result = await fetch('/api/product-image', {
-      method: "POST", body: imageData,
-    }).then(a => a.json())
-    formData.image = result
+    let result = await uploadImage('/api/product-image', formData.image)
+    formData.image = result.data
 
     // upload product
     result = await fetch('/api/product', {
