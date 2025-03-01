@@ -1,29 +1,13 @@
-import { faArrowRight, faBars, faPuzzlePiece } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Avatar, Card, Carousel, List, Table } from "antd";
-import { Link } from "react-router-dom";
-import Banner from "../component/Banner";
-import useCustomerAuth from "../../../hooks/useCustomerAuth";
 import { useEffect, useState } from "react";
+
+import useCustomerAuth from "../../../hooks/useCustomerAuth";
 import ProductList from "../component/ProductList";
 import ContentHeader from "../component/ContentHeader";
 import Sidebar from "../component/Sidebar";
-
+import Banner from "../component/Banner";
 
 
 function MainPage() {
-  const auth = useCustomerAuth()
-  const [sanPham, setSanPham] = useState()
-
-  useEffect(function () {
-    fetch('/api/product')
-      .then(data => data.json())
-      .then(({ data }) => setSanPham(data))
-  }, [])
-
-  console.log(sanPham)
-
-  console.log(auth)
   return (
     <>
       <Banner />

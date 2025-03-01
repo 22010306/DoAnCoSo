@@ -37,5 +37,6 @@ module.exports = {
   readCustomer,
   updatecustomer,
   deleteCustomer,
-  generateAccessToken
+  generateAccessToken,
+  getSecretValue
 }

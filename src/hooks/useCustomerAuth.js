@@ -4,7 +4,7 @@ function useCustomerAuth() {
   const [auth, setAuth] = useState()
   useEffect(function () {
     const auth = localStorage.getItem('auth-customer')
-    if (auth) setAuth(auth)
+    if (auth) return setAuth(auth)
 
     // fetch customer's account
     fetch('/api/customer/auth')
