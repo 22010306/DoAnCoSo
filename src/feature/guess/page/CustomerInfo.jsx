@@ -1,6 +1,83 @@
 import { Button, Input, Select } from "antd"
+import useAPI from "../../../hooks/useApi"
+import useCustomerAuth from "../../../hooks/useCustomerAuth"
+import { useEffect, useState } from "react"
+
+
+function CustomerForm({ }) {
+  const auth = useCustomerAuth()
+  const [customer, setCustomer] = useState({})
+
+  function onChange(e) {
+    const elem = e.target
+    setCustomer(item => ({ ...item, [elem.name]: e.value }))
+  }
+  useEffect(function () {
+    if (!auth) return
+
+    fetch('/api/customer', { method: "GET", headers: { Authorization: 'Bearer ' + auth, } })
+      .then(data => data.json())
+      .then(data => {
+        setCustomer(data.data[0])
+      })
+  }, [auth])
+
+  return (
+    <>
+      <div className="grid items-center grid-cols-[250px_1fr] gap-2 ">
+        <label className="font-bold" htmlFor="name">Họ và tên</label>
+        <Input name="name" onChange={onChange} required value={customer.name} />
+      </div>
+      <div className="grid items-center grid-cols-[250px_1fr] gap-2 ">
+        <label className="font-bold" htmlFor="name">Email</label>
+        <Input name="mail" onChange={onChange} required value={customer.mail} />
+      </div>
+      <div className="grid items-center grid-cols-[250px_1fr] gap-2 ">
+        <label className="font-bold" htmlFor="name">Điện thoại</label>
+        <Input name="phone" onChange={onChange} required value={customer.phone} />
+      </div>
+      <div className="grid items-center grid-cols-[250px_1fr] gap-2 ">
+        <label className="font-bold" htmlFor="name">Địa chỉ</label>
+        <Input name="address" onChange={onChange} required value={customer.address} />
+      </div>
+    </>
+  )
+}
 
 function CustomerInfo() {
+  const [paymentType,] = useAPI(
+    'api/order/payment-type',
+    null,
+    i => i.data.map(item => ({ value: item.id, label: <span>{item.displayName}</span> })))
+  const auth = useCustomerAuth()
+
+  const [choice, setChoice] = useState(1)
+
+  async function onSubmit(e) {
+    e.preventDefault()
+    const data = Object.fromEntries(new FormData(e.target))
+
+    fetch('/api/customer', {
+      method: "PUT",
+      headers: {
+        Authorization: 'Bearer ' + auth,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(a => a.json())
+      .then(console.log)
+
+    fetch('/api/order', {
+      method: "POST",
+      headers: {
+        Authorization: 'Bearer ' + auth,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ paymentType: choice })
+    }).then(data => data.json())
+      .then(console.log)
+  }
+
   return (
     <div>
       <div className="shadow border-1 rounded border-gray-300 ">
@@ -8,30 +85,11 @@ function CustomerInfo() {
           Thông tin khách hàng
         </div>
 
-        <form className="mx-10 my-5 text-nowrap flex flex-col gap-3">
-          <div className="grid grid-cols-[250px_1fr] gap-2 font-bold">
-            <label htmlFor="name">Họ và tên</label>
-            <Input />
-          </div>
-          <div className="grid grid-cols-[250px_1fr] gap-2 font-bold">
-            <label htmlFor="name">Email</label>
-            <Input />
-          </div>
-          <div className="grid grid-cols-[250px_1fr] gap-2 font-bold">
-            <label htmlFor="name">Điện thoại</label>
-            <Input />
-          </div>
-          <div className="grid grid-cols-[250px_1fr] gap-2 font-bold">
-            <label htmlFor="name">Địa chỉ</label>
-            <Input />
-          </div>
-          <div className="grid grid-cols-[250px_1fr] gap-2 font-bold">
-            <label htmlFor="name">Phương thức thanh toán</label>
-            <Select className="w-60">
-              <Select.Option value="1">Thanh toán trực tiếp</Select.Option>
-              <Select.Option value="2">Chuyển khoản ngân hàng</Select.Option>
-              <Select.Option value="3">Chuyển tiền qua bưu điện</Select.Option>
-            </Select>
+        <form className="mx-10 my-5 text-nowrap flex flex-col gap-3" onSubmit={onSubmit}>
+          <CustomerForm />
+          <div className="grid items-center grid-cols-[250px_1fr] gap-2 ">
+            <label className="font-bold" htmlFor="name">Phương thức thanh toán</label>
+            <Select value={choice} className="w-60" name="paymentType" defaultValue={1} options={paymentType} onChange={function (e) { setChoice(e) }} />
           </div>
           <Button size="large" htmlType="submit" variant="solid" color="orange" className="p-10 mx-auto">Đặt mua hàng</Button>
         </form>

@@ -1,18 +1,23 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-function useAPI(url, options, parseFunc = i => i) {
+function defaultFunc(i) { return i }
+
+function useAPI(url, options, parseFunc = defaultFunc) {
   const [data, setData] = useState([])
 
-  return [
-    data,
-    async () => {
-      setData([])
-      fetch(url, options)
-        .then(data => data.json())
-        .then(data => parseFunc(data))
-        .then(data => setData(data))
-    }
-  ]
+  async function update() {
+    setData([])
+    const result = await fetch(url, options)
+      .then(data => data.json())
+
+    setData(parseFunc(result))
+  }
+
+  useEffect(function () {
+    update()
+  }, [])
+
+  return [data, update]
 }
 
 export default useAPI

@@ -1,10 +1,9 @@
 import { Button, message, Table } from "antd"
-import ProductList from "../component/ProductList"
-import Sidebar from "../component/Sidebar"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
+
 import useCustomerAuth, { getCustomerToken } from "../../../hooks/useCustomerAuth"
 
 function DeleteBtn({ item }) {

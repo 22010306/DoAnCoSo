@@ -11,10 +11,6 @@ const NavbarTheme = {
       hoverBorderColor: colors.red[500],
       colorBorder: colors.red[500],
       paddingBlock: 8,
-    },
-    Button: {
-      // paddingBlockLG: 10,
-
     }
   },
 }
@@ -22,10 +18,10 @@ const NavbarTheme = {
 function Navbar() {
   return (
     <ConfigProvider theme={NavbarTheme}>
-      <div className="h-23 flex gap-30 justify-center items-center">
-        <div className="flex gap-2 justify-center items-center">
+      <div className="h-23 flex xl:gap-30 lg:gap-10 gap-2 justify-center items-center">
+        <div className="flex xl:gap-2 justify-center items-center">
           <img className="h-20 w-auto" src="/imgs/png/logoAge.png" alt="" />
-          <p className="text-2xl uppercase text-red-500 font-bold">Giày thời đại</p>
+          <p className="xl:text-2xl lg:text-xl uppercase text-red-500 font-bold text-nowrap">Giày thời đại</p>
         </div>
 
         <Space.Compact>
