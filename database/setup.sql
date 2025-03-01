@@ -48,13 +48,14 @@ CREATE TABLE shopping_cart_item (
 DROP TABLE IF EXISTS payment_type;
 CREATE TABLE payment_type (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
-    name                VARCHAR(32)         UNIQUE
+    name                VARCHAR(32)         UNIQUE,
+    displayName			VARCHAR(255)
 );
 
-INSERT INTO payment_type (name)
-VALUES  ('thanh_toan_truc_tiep'),
-        ('chuyen_khoan_ngan_hang'),
-        ('chuyen_tien_buu_dien');
+INSERT INTO payment_type (name, displayName)
+VALUES  ('thanh_toan_truc_tiep', 'Thanh toán trực tiếp'),
+        ('chuyen_khoan_ngan_hang', 'Chuyển khoản ngân hàng'),
+        ('chuyen_tien_buu_dien' , 'Chuyển tiền bưu điện');
 
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
@@ -70,7 +71,7 @@ CREATE TABLE orders (
 DROP TABLE IF EXISTS product_order;
 CREATE TABLE product_order (
     id                  INT                 AUTO_INCREMENT PRIMARY KEY,
-    number              INT                 NOT NULL,
+    quantity            INT                 NOT NULL,
     product             INT                 NOT NULL,
     orderID             INT                 NOT NULL,
 

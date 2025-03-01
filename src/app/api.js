@@ -6,7 +6,7 @@ router.use('/product', require('../feature/product/api'))
 router.use('/customer', require('../feature/customer/api'))
 
 router.use('/cart', require('../feature/guess/api/shopping_cart'))
-
+router.use('/order', require('../feature/guess/api/order'))
 // default
 router.get('/', (req, res) => {
   res.send('/app/api.js')

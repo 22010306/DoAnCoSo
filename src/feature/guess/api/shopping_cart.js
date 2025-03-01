@@ -1,7 +1,7 @@
 // /api/cart
 const router = require('express').Router()
 
-const { addItemToCart, readItemInCart, removeItemInCart, updateItemInCart, getItemByUserAndProduct } = require('../model/shoppingcart')
+const { addItemToCart, readItemInCart, removeItemInCart, updateItemInCart, getItemByUserAndProduct } = require('../model/shopping_cart')
 const parseCustomerTokenMiddleware = require('./parseTokenMiddleware')
 
 router.use(parseCustomerTokenMiddleware)
@@ -32,6 +32,18 @@ router.post('/', async function (req, res) {
 router.get('/', async function (req, res) {
   // Add item
   const user = res.locals.user
-  res.json(user)
+  if (!user) return res.json({ message: "Fail!! Cant find user", success: false, data: null })
+  console.log(user)
+  const [items] = await readItemInCart({ user: user.id })
+  res.json({ success: true, message: "Successful", data: items })
+})
+
+router.delete('/', async function (req, res) {
+  const user = res.locals.user
+  const { body } = req
+  const result = await removeItemInCart(body)
+  console.log(result)
+
+  res.json({ result })
 })
 module.exports = router

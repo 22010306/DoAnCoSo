@@ -7,22 +7,27 @@ async function addItemToCart({ quantity, user, product }) {
   return await query(addItemToCartQuery, [quantity, user, product])
 }
 
-const removeItemInCartQuery = ``
-async function removeItemInCart() {
-
+const removeItemInCartQuery = `
+DELETE FROM shopping_cart_item
+WHERE id = ? AND user = ?`
+async function removeItemInCart({ id, user }) {
+  return await query(removeItemInCartQuery, [id, user])
 }
 
 const readItemInCartQuery = `
-SELECT  p.name, 
+SELECT  s.id,
+        p.name, 
+        p.id product,
+        s.user user,
         s.quantity, 
         p.price, 
-        s.quantity * p.price AS total
+        (s.quantity * p.price) AS total
 FROM shopping_cart_item s
 INNER JOIN product p ON s.product = p.id
 INNER JOIN customer c ON s.user = c.id
 WHERE c.id = ?`
-async function readItemInCart({ id }) {
-  return await query(readItemInCartQuery, [id])
+async function readItemInCart({ user }) {
+  return await query(readItemInCartQuery, [user])
 }
 
 const getItemByUserAndProductQuery = `
