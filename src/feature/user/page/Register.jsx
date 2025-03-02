@@ -9,7 +9,15 @@ function Register() {
   }, [])
 
   async function onFormSubmit(e) {
+    e.preventDefault()
+    const formData = Object.fromEntries(new FormData(e.target))
+    const result = await fetch('/api/auth/register', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData)
+    }).then(data => data.json())
 
+    if (result.success) document.location.replace('/auth/login')
   }
 
   return (

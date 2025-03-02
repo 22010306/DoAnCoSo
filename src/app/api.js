@@ -1,6 +1,8 @@
 // api/
 const router = require('express').Router()
 
+router.use('/auth', require('../feature/user/api'))
+
 router.use('/product-image', require('../feature/product/api/image'))
 router.use('/product', require('../feature/product/api'))
 router.use('/customer', require('../feature/customer/api'))

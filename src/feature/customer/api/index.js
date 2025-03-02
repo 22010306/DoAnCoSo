@@ -11,6 +11,29 @@ router.get('/auth', async function (req, res) {
   res.json({ success: true, message: "Success", data: token })
 })
 
+
+router.get('/info/:id', async function (req, res) {
+  try {
+    const user = req.params
+    const result = await getCustomerById({ id: user.id })
+    res.json({ data: result[0], message: "Success", success: true })
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false, message: "Failed", data: null })
+  }
+})
+
+router.get('/order/:id', async function (req, res) {
+  try {
+    const user = req.params
+    const result = await getCustomerById({ id: user.id })
+    res.json({ data: result[0], message: "Success", success: true })
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false, message: "Failed", data: null })
+  }
+})
+
 router.get('/', parseCustomerTokenMiddleware, async function (req, res) {
   try {
     const user = res.locals.user
@@ -23,7 +46,6 @@ router.get('/', parseCustomerTokenMiddleware, async function (req, res) {
     res.json({ success: false, message: "Failed", data: null })
   }
 })
-
 
 router.get('/info', async function (req, res) {
   try {

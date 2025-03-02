@@ -1,10 +1,26 @@
-const { v4 } = require('uuid')
-const bcrypt = require('bcrypt')
-const randomstring = require('randomstring')
-const Database = require('../../../app/database')
+const { query } = require("../../../app/database")
 
-class User {
 
+function getSecretValue() {
+  return 'secret-value'
 }
 
-module.exports = User
+const createUserQuery = `
+INSERT INTO user (name, mail, password) 
+VALUES (?, ?, ?)`
+async function createUser({ name, email, password }) {
+  return await query(createUserQuery, [name, email, password])
+}
+
+const getUserQuery = `
+SELECT * FROM user
+WHERE mail = ?`
+async function getUser({ email }) {
+  return await query(getUserQuery, [email])
+}
+
+module.exports = {
+  createUser,
+  getUser,
+  getSecretValue
+}

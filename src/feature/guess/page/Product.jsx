@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
 
 import ProductList from "../component/ProductList"
-import useCustomerAuth from "../../../hooks/useCustomerAuth"
+
+import { useSelector } from "react-redux"
+import { getAuth } from "../redux/authSlice"
 
 function ProductDetail() {
   const param = useParams()
   const [api, contextHolder] = notification.useNotification()
 
-  const auth = useCustomerAuth()
+  const auth = useSelector(getAuth)
   const [sanPham, setSanPham] = useState()
 
 
@@ -21,13 +23,12 @@ function ProductDetail() {
       .then(({ data }) => setSanPham(data[0]))
   }, [param])
 
-  console.log(sanPham)
 
   async function onSubmit(e) {
     e.preventDefault()
     const data = Object.fromEntries(new FormData(e.target))
+    console.log(auth)
 
-    console.log(data)
     const result = await fetch('/api/cart', {
       method: "POST",
       headers: {

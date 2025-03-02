@@ -10,16 +10,13 @@ router.post('/', parseCustomerTokenMiddleware, async function (req, res) {
   const body = req.body
   try {
     const [order] = await createOrder({ customer: user.id, payment: req.body.paymentType })
-
     const [orderItems] = await readItemInCart({ user: user.id })
 
     if (orderItems.length === 0) throw ""
     const [result] = await updateOrderItem({ items: orderItems.map(i => [i.quantity, i.product, order.insertId]) })
 
     await clearItemInCart({ user: user.id })
-
     res.json({ success: true, message: "Success", data: null })
-
   } catch (error) {
     res.json({ success: false, message: "Fail", data: null })
   }

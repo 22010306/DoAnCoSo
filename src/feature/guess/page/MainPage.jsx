@@ -19,7 +19,6 @@ function MainPage() {
         {/* right */}
         <div className="w-full overflow-hidden">
           <ProductList />
-
         </div>
       </div>
     </>

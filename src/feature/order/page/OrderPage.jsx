@@ -12,7 +12,7 @@ const columns = [
     render: (_, item) => {
       const date = new Date(_)
       return (
-        <Link to={`/dashboard/customer/${item.id}`}>
+        <Link to={`/dashboard/order/${item.id}`}>
           {date.toLocaleString()}
         </Link>
       )
@@ -33,16 +33,10 @@ function OrderPage() {
         { title: <Link to="/dashboard" >Dashboard</Link> },
         { title: <p>Order</p> },
       ]} />
-      <TableData
-        columns={columns}
-        dataSource={order}
+      <TableData columns={columns} dataSource={order}
         title={() =>
           <div className="flex justify-between">
-            <CrudButton
-              refreshClick={() => {
-                updateOrder()
-              }}
-            />
+            <CrudButton refreshClick={() => updateOrder()} />
             <SearchField findClick={function (e) { }} />
           </div>
         } />

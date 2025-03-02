@@ -9,7 +9,7 @@ router.use(parseCustomerTokenMiddleware)
 router.post('/', async function (req, res) {
   // Add item
   const user = res.locals.user
-  const data = { ...req.body, user: user.id }
+  const data = { ...req.body, user: user?.id }
 
   try {
     const [olderOrder] = (await getItemByUserAndProduct(data))[0]

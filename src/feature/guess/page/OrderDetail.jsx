@@ -4,19 +4,21 @@ import { faX } from "@fortawesome/free-solid-svg-icons"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 
-import useCustomerAuth, { getCustomerToken } from "../../../hooks/useCustomerAuth"
+import { useSelector } from "react-redux"
+import { getAuth } from "../redux/authSlice"
 
 function DeleteBtn({ item }) {
+  const auth = useSelector(getAuth)
   async function onClick(e) {
     const result = await fetch('/api/cart/', {
       method: "DELETE",
       headers: {
-        Authorization: 'Bearer ' + getCustomerToken(),
+        Authorization: 'Bearer ' + auth,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(item)
     }).then(a => a.json())
-    console.log({ result })
+
     window.location.reload()
   }
   return (
@@ -40,7 +42,7 @@ const orderTable = [
 function OrderDetail() {
   const [data, setData] = useState([])
   const [messageApi, contextHolder] = message.useMessage();
-  const auth = useCustomerAuth()
+  const auth = useSelector(getAuth)
 
   useEffect(function () {
     if (!auth) return

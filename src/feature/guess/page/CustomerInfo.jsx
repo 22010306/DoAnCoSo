@@ -2,16 +2,19 @@ import { Button, Input, message, Select } from "antd"
 import useAPI from "../../../hooks/useApi"
 import useCustomerAuth from "../../../hooks/useCustomerAuth"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { getAuth } from "../redux/authSlice"
 
 
 function CustomerForm({ }) {
-  const auth = useCustomerAuth()
+  const auth = useSelector(getAuth)
   const [customer, setCustomer] = useState({})
 
   function onChange(e) {
     const elem = e.target
     setCustomer(item => ({ ...item, [elem.name]: e.value }))
   }
+
   useEffect(function () {
     if (!auth) return
 
@@ -48,8 +51,7 @@ function CustomerInfo() {
     'api/order/payment-type',
     null,
     i => i.data.map(item => ({ value: item.id, label: <span>{item.displayName}</span> })))
-  const auth = useCustomerAuth()
-
+  const auth = useSelector(getAuth)
   const [choice, setChoice] = useState(1)
 
   async function onSubmit(e) {
@@ -75,20 +77,11 @@ function CustomerInfo() {
       body: JSON.stringify({ paymentType: choice })
     }).then(data => data.json())
 
+    if (!result)
+      return messageApi.open({ type: 'error', content: 'Gặp lỗi khi thiết lập đơn đặt hàng của bạn', });
 
-    if (!result) return messageApi.open({
-      type: 'error',
-      content: 'Gặp lỗi khi thiết lập đơn đặt hàng của bạn',
-    });
-
-    messageApi.open({
-      type: 'success',
-      content: 'Đặt hàng thành công!!!',
-    });
-
-    setTimeout(function () {
-      document.location.replace('/')
-    }, 1000)
+    messageApi.open({ type: 'success', content: 'Đặt hàng thành công!!!', });
+    setTimeout(function () { document.location.replace('/') }, 1000)
   }
 
   return (

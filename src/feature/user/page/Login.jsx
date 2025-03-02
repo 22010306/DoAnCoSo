@@ -11,7 +11,19 @@ function Login() {
   }, [])
 
   async function onFormSubmit(e) {
+    e.preventDefault()
 
+    const data = Object.fromEntries(new FormData(e.target))
+    const result = await fetch('/api/auth/login', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    }).then(data => data.json())
+    console.log(result)
+    if (!result) return
+
+    localStorage.setItem('admin-token', result.data)
+    document.location.replace('/dashboard')
   }
 
   return (

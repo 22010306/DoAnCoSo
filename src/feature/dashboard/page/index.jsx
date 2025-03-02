@@ -11,6 +11,7 @@ import ProductPage from "../../product/page/Product";
 import ProductRoute from "../../product/page";
 import CustomerRoute from "../../customer/page";
 import OrderRoute from "../../order/page";
+import UserPage from "./User";
 
 function DashboardPage(props) {
   return (
@@ -24,7 +25,7 @@ function DashboardPage(props) {
             <Route path="/customer/*" element={<CustomerRoute />} />
             <Route path="/order/*" element={<OrderRoute />} />
             <Route path="/statistic/*" element={<ProductPage />} />
-            <Route path="/account/*" element={<ProductPage />} />
+            <Route path="/account/*" element={<UserPage />} />
           </Route>
         </Route>
       </Routes>
