@@ -1,12 +1,12 @@
+import { lazy } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Provider, useSelector } from "react-redux"
 
 import store from "./redux/store"
 
-import GuessPage from "../feature/guess/page"
-import DashboardPage from "../feature/dashboard/page"
-import AuthPage from "../feature/USER/page"
-
+const GuessPage = lazy(() => import("../feature/guess/page"))
+const DashboardPage = lazy(() => import("../feature/dashboard/page"))
+const AuthPage = lazy(() => import("../feature/user/page"))
 
 function App() {
   fetch('/api')

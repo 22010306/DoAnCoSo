@@ -1,4 +1,4 @@
-import { Breadcrumb, Descriptions, List } from "antd"
+import { Breadcrumb, Descriptions, List, Table } from "antd"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
@@ -11,15 +11,23 @@ const cols = {
   total: "Tổng đơn giá"
 }
 
+const columns = [
+  { title: 'Mã sản phẩm', dataIndex: 'id', },
+  { title: 'Tên sản phẩm', dataIndex: 'name', },
+  { title: 'Giá tiền', dataIndex: 'price', },
+  { title: 'Số lượng', dataIndex: 'quantity', },
+  { title: 'Tổng', dataIndex: 'total', },
+]
+
 function OrderDetail() {
   const param = useParams()
   const [customer, setCustomer] = useState([])
+  const [items, setItems] = useState([])
 
   useEffect(function () {
-    fetch(`/api/manage-order/info/${param.id}`)
+    fetch(`/api/manage-order/detail/${param.id}`)
       .then(data => data.json())
       .then(function (data) {
-        console.log(data)
         const x = Object.entries(data.data[0])
           .map(([key, value], i) => ({
             label: <p className="font-bold">{cols[key]}</p>,
@@ -27,6 +35,10 @@ function OrderDetail() {
           }))
         setCustomer(x)
       })
+
+    fetch(`/api/manage-order/items/${param.id}`)
+      .then(data => data.json())
+      .then(data => setItems(data.data.map((i, j) => ({ ...i, key: j }))))
   }, [])
   return (
     <>
@@ -36,7 +48,12 @@ function OrderDetail() {
         { title: <p>{param.id}</p> },
       ]} />
       <Descriptions layout="vertical" bordered title="Thông tin đơn hàng" items={customer} />
-      <List header={<p className="text-lg font-bold">Danh sách sản phẩm</p>} />
+      <Table
+        className="mt-3"
+        columns={columns}
+        dataSource={items}
+        title={() => <p className="text-lg font-bold">Danh sách sản phẩm</p>} />
+
     </>
   )
 }
