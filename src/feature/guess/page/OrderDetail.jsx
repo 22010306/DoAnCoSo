@@ -55,10 +55,7 @@ function OrderDetail() {
   function onOrderClick() {
     if (data.length > 0) return
 
-    messageApi.open({
-      type: 'error',
-      content: 'Giỏ hàng đang trống. Hãy chọn 1 sản phẩm!',
-    });
+    messageApi.open({ type: 'error', content: 'Giỏ hàng đang trống. Hãy chọn 1 sản phẩm!', });
   }
 
   return (

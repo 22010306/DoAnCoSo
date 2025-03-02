@@ -17,6 +17,20 @@ async function createCustomer({ }) {
   return await query(createCustomerQuery)
 }
 
+const getCustomerQuery = `
+SELECT 	  c.id, 
+          c.name, 
+          c.phone, 
+          c.mail, 
+          c.address,  
+          COUNT(*) AS orders
+FROM orders o
+INNER JOIN customer c ON c.id = o.customer
+GROUP BY c.id;`
+async function getCustomer() {
+  return await query(getCustomerQuery)
+}
+
 const readCustomerQuery = `
 SELECT * FROM customer`
 async function readCustomer() {
@@ -52,5 +66,6 @@ module.exports = {
   deleteCustomer,
   generateAccessToken,
   getSecretValue,
-  getCustomerById
+  getCustomerById,
+  getCustomer
 }

@@ -8,32 +8,39 @@ import useAPI from "../../../hooks/useApi"
 
 const columns = [
   {
-    title: 'Họ và tên', dataIndex: 'name', key: 'name',
-    render: (_, item) => <Link to={`/dashboard/customer/${item.id}`}>{_}</Link>
+    title: 'Ngày đặt', dataIndex: 'createAt', key: 'createAt',
+    render: (_, item) => {
+      const date = new Date(_)
+      return (
+        <Link to={`/dashboard/customer/${item.id}`}>
+          {date.toLocaleString()}
+        </Link>
+      )
+    }
   },
-  { title: 'mail', dataIndex: 'mail', key: 'age', },
-  { title: 'Số điện thoại', dataIndex: 'phone', },
-  { title: 'Địa chỉ', dataIndex: 'address', },
-  { title: 'Đơn đã đặt', dataIndex: 'orders', }
+  { title: 'Khách hàng', dataIndex: 'name', key: 'name', },
+  { title: 'Phương thức thanh toán', dataIndex: 'payment', },
+  { title: 'Số lượng sản phẩm đặt', dataIndex: 'product', },
+  { title: 'Tổng đơn hàng', dataIndex: 'total', }
 ]
 
-function CustomerPage() {
-  const [customer, updateCustomer] = useAPI('/api/customer/info', null, i => i.data.map(i => ({ ...i, key: i.id })))
+function OrderPage() {
+  const [order, updateOrder] = useAPI('/api/manage-order/', null, i => i.data.map(i => ({ ...i, key: i.id })))
 
   return (
     <>
       <Breadcrumb className="text-2xl" items={[
         { title: <Link to="/dashboard" >Dashboard</Link> },
-        { title: <p>Customer</p> },
+        { title: <p>Order</p> },
       ]} />
       <TableData
         columns={columns}
-        dataSource={customer}
+        dataSource={order}
         title={() =>
           <div className="flex justify-between">
             <CrudButton
               refreshClick={() => {
-
+                updateOrder()
               }}
             />
             <SearchField findClick={function (e) { }} />
@@ -43,4 +50,4 @@ function CustomerPage() {
   )
 }
 
-export default CustomerPage
+export default OrderPage

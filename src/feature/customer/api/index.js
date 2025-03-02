@@ -2,7 +2,7 @@
 const router = require('express').Router()
 
 const parseCustomerTokenMiddleware = require('../../guess/api/parseTokenMiddleware')
-const { createCustomer, deleteCustomer, readCustomer, updatecustomer, generateAccessToken, getCustomerById } = require('../model/customer')
+const { createCustomer, deleteCustomer, readCustomer, updatecustomer, generateAccessToken, getCustomerById, getCustomer } = require('../model/customer')
 
 router.get('/auth', async function (req, res) {
   const customer = (await createCustomer({}))[0].insertId
@@ -20,6 +20,16 @@ router.get('/', parseCustomerTokenMiddleware, async function (req, res) {
     res.json({ message: 'Success', success: true, data: result })
   } catch (error) {
     // console.log(error)
+    res.json({ success: false, message: "Failed", data: null })
+  }
+})
+
+
+router.get('/info', async function (req, res) {
+  try {
+    const [result] = await getCustomer();
+    res.json({ message: 'Success', success: true, data: result })
+  } catch (e) {
     res.json({ success: false, message: "Failed", data: null })
   }
 })

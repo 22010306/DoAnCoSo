@@ -46,10 +46,18 @@ async function updateItemInCart({ quantity, user, product }) {
   return await query(updateItemInCartQuery, [quantity, user, product])
 }
 
+const clearItemInCartQuery = `
+DELETE FROM shopping_cart_item
+WHERE user = ?`
+async function clearItemInCart({ user }) {
+  return await query(clearItemInCartQuery, [user])
+}
+
 module.exports = {
   addItemToCart,
   readItemInCart,
   getItemByUserAndProduct,
   removeItemInCart,
-  updateItemInCart
+  updateItemInCart,
+  clearItemInCart
 }

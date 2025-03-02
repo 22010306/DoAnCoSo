@@ -1,4 +1,4 @@
-import { Button, Input, Select } from "antd"
+import { Button, Input, message, Select } from "antd"
 import useAPI from "../../../hooks/useApi"
 import useCustomerAuth from "../../../hooks/useCustomerAuth"
 import { useEffect, useState } from "react"
@@ -17,9 +17,7 @@ function CustomerForm({ }) {
 
     fetch('/api/customer', { method: "GET", headers: { Authorization: 'Bearer ' + auth, } })
       .then(data => data.json())
-      .then(data => {
-        setCustomer(data.data[0])
-      })
+      .then(data => setCustomer(data.data[0]))
   }, [auth])
 
   return (
@@ -45,6 +43,7 @@ function CustomerForm({ }) {
 }
 
 function CustomerInfo() {
+  const [messageApi, contextHolder] = message.useMessage();
   const [paymentType,] = useAPI(
     'api/order/payment-type',
     null,
@@ -67,7 +66,7 @@ function CustomerInfo() {
     }).then(a => a.json())
       .then(console.log)
 
-    fetch('/api/order', {
+    const result = await fetch('/api/order', {
       method: "POST",
       headers: {
         Authorization: 'Bearer ' + auth,
@@ -75,11 +74,26 @@ function CustomerInfo() {
       },
       body: JSON.stringify({ paymentType: choice })
     }).then(data => data.json())
-      .then(console.log)
+
+
+    if (!result) return messageApi.open({
+      type: 'error',
+      content: 'Gặp lỗi khi thiết lập đơn đặt hàng của bạn',
+    });
+
+    messageApi.open({
+      type: 'success',
+      content: 'Đặt hàng thành công!!!',
+    });
+
+    setTimeout(function () {
+      document.location.replace('/')
+    }, 1000)
   }
 
   return (
     <div>
+      {contextHolder}
       <div className="shadow border-1 rounded border-gray-300 ">
         <div className="border-b-1 bg-gray-50  p-2 text-xl font-bold border-gray-300 ">
           Thông tin khách hàng
