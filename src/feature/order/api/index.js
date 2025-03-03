@@ -1,6 +1,6 @@
+// /api/manage-order/
 const { getOrder, getOrderHistoryByUserId, getOrderItemById, getOrderById } = require('../model/order')
 
-// /api/manage-order/
 const router = require('express').Router()
 
 router.get('/', async function (req, res) {
