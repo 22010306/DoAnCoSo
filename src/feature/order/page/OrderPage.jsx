@@ -5,6 +5,7 @@ import TableData from "../../../components/TableData"
 import CrudButton from "../../../components/CrudButton"
 import SearchField from "../../../components/SearchField"
 import useAPI from "../../../hooks/useApi"
+import { useState } from "react"
 
 const columns = [
   {
@@ -26,6 +27,7 @@ const columns = [
 
 function OrderPage() {
   const [order, updateOrder] = useAPI('/api/manage-order/', null, i => i.data.map(i => ({ ...i, key: i.id })))
+  const [search, setSearch] = useState("")
 
   return (
     <>
@@ -33,11 +35,13 @@ function OrderPage() {
         { title: <Link to="/dashboard" >Dashboard</Link> },
         { title: <p>Order</p> },
       ]} />
-      <TableData columns={columns} dataSource={order}
+      <TableData
+        columns={columns}
+        dataSource={order.filter(i => i.name.toLowerCase().includes(search.toLowerCase()))}
         title={() =>
           <div className="flex justify-between">
             <CrudButton refreshClick={() => updateOrder()} />
-            <SearchField findClick={function (e) { }} />
+            <SearchField placeholder={"Tìm kiếm theo tên khách hàng..."} findClick={function (e) { setSearch(e) }} />
           </div>
         } />
     </>

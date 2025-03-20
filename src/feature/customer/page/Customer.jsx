@@ -5,6 +5,7 @@ import TableData from "../../../components/TableData"
 import CrudButton from "../../../components/CrudButton"
 import SearchField from "../../../components/SearchField"
 import useAPI from "../../../hooks/useApi"
+import { useState } from "react"
 
 const columns = [
   {
@@ -19,6 +20,9 @@ const columns = [
 
 function CustomerPage() {
   const [customer, updateCustomer] = useAPI('/api/customer/info', null, i => i.data.map(i => ({ ...i, key: i.id })))
+  const [search, setSearch] = useState("")
+
+  console.log(search)
 
   return (
     <>
@@ -28,15 +32,19 @@ function CustomerPage() {
       ]} />
       <TableData
         columns={columns}
-        dataSource={customer}
+        dataSource={customer.filter(i => i.name.toLowerCase().includes(search.toLowerCase()))}
         title={() =>
           <div className="flex justify-between">
             <CrudButton
               refreshClick={() => {
-
+                updateCustomer()
+                console.log('test')
               }}
             />
-            <SearchField findClick={function (e) { }} />
+            <SearchField placeholder="Tìm kiếm theo tên..."
+              findClick={function (e) {
+                setSearch(e)
+              }} />
           </div>
         } />
     </>
